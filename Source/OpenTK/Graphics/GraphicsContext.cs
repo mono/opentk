@@ -43,7 +43,11 @@ namespace OpenTK.Graphics
         // Necessary to allow creation of dummy GraphicsContexts (see CreateDummyContext static method).
         GraphicsContext(ContextHandle handle)
         {
+#if !IPHONE
             implementation = new OpenTK.Platform.Dummy.DummyGLContext(handle);
+#else
+            implementation = new OpenTK.Platform.iPhoneOS.iPhoneOSGraphicsContext(handle);
+#endif
 
             lock (SyncRoot)
             {
@@ -101,10 +105,15 @@ namespace OpenTK.Graphics
                     // Todo: Add a DummyFactory implementing IPlatformFactory.
                     if (designMode)
                     {
+#if !IPHONE
                         implementation = new Platform.Dummy.DummyGLContext();
+#else
+                        implementation = Factory.Embedded.CreateGLContext(mode, window, shareContext, direct_rendering, major, minor, flags);
+#endif
                     }
                     else
                     {
+#if !IPHONE
                         IPlatformFactory factory = null;
                         switch ((flags & GraphicsContextFlags.Embedded) == GraphicsContextFlags.Embedded)
                         {
@@ -127,6 +136,14 @@ namespace OpenTK.Graphics
                                 GetCurrentContext = temp;
                             }
                         }
+#else
+                        switch ((flags & GraphicsContextFlags.Embedded) == GraphicsContextFlags.Embedded)
+                        {
+                            case false: implementation = Factory.Default.CreateGLContext(mode, window, shareContext, direct_rendering, major, minor, flags); break;
+                            case true: implementation = Factory.Embedded.CreateGLContext(mode, window, shareContext, direct_rendering, major, minor, flags); break;
+                        }
+
+#endif
                     }
 
                     available_contexts.Add((this as IGraphicsContextInternal).Context, new WeakReference(this));
@@ -167,7 +184,11 @@ namespace OpenTK.Graphics
 
                 if (handle == ContextHandle.Zero)
                 {
+#if !IPHONE
                     implementation = new OpenTK.Platform.Dummy.DummyGLContext(handle);
+#else
+                    implementation = new OpenTK.Platform.iPhoneOS.iPhoneOSGraphicsContext(handle);
+#endif
                 }
                 else if (available_contexts.ContainsKey(handle))
                 {

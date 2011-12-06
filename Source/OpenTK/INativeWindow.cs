@@ -39,10 +39,12 @@ namespace OpenTK
     /// </summary>
     public interface INativeWindow : IDisposable
     {
+#if !IPHONE
         /// <summary>
         /// Gets or sets the <see cref="System.Drawing.Icon"/> of the window.
         /// </summary>
         Icon Icon { get; set; }
+#endif
 
         /// <summary>
         /// Gets or sets the title of the window.
@@ -126,11 +128,13 @@ namespace OpenTK
         /// </summary>
         Size ClientSize { get; set; }
 
+#if !IPHONE
         /// <summary>
         /// This property is deprecated and should not be used.
         /// </summary>
         [Obsolete]
         OpenTK.Input.IInputDriver InputDriver { get; }
+#endif
 
         /// <summary>
         /// Closes this window.
@@ -189,10 +193,12 @@ namespace OpenTK
         /// </summary>
         event EventHandler<EventArgs> Disposed;
 
+#if !IPHONE
         /// <summary>
         /// Occurs when the <see cref="Icon"/> property of the window changes. 
         /// </summary>
         event EventHandler<EventArgs> IconChanged;
+#endif
 
         /// <summary>
         /// Occurs when the <see cref="Title"/> property of the window changes.
@@ -224,6 +230,7 @@ namespace OpenTK
         /// </summary>
         event EventHandler<KeyPressEventArgs> KeyPress;
 
+#if !IPHONE
         /// <summary>
         /// Occurs whenever the mouse cursor leaves the window <see cref="Bounds"/>.
         /// </summary>
@@ -249,5 +256,6 @@ namespace OpenTK
         //event EventHandler<DragEventArgs> DragEnter;
         //event EventHandler<DragEventArgs> DragOver;
         //event EventHandler<EventArgs> DragLeave;
+#endif
     }
 }

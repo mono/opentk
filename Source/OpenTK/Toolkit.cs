@@ -60,7 +60,9 @@ namespace OpenTK
         {
             // The actual initialization takes place in the platform-specific factory
             // constructors.
+#if !IPHONE
             new Platform.Factory();
+#endif
         }
 
         #endregion
