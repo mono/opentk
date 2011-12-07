@@ -576,6 +576,7 @@ namespace Bind.GL2
             sw.WriteLine("#pragma warning disable 1591");   // Missing doc comments
 
             sw.WriteLine();
+#if !IPHONE
             sw.WriteLine("partial class {0}", Settings.OutputClass);
             sw.WriteLine("{");
             sw.Indent();
@@ -599,6 +600,7 @@ namespace Bind.GL2
 
             sw.Unindent();
             sw.WriteLine("}");
+#endif
         }
 
         #endregion

@@ -287,9 +287,15 @@ namespace Bind.Structures
         {
             StringBuilder sb = new StringBuilder();
 
+#if !IPHONE
             sb.Append(Settings.DelegatesClass);
+#else
+            sb.Append(Settings.ImportsClass);
+#endif
             sb.Append(".");
+#if !IPHONE
             sb.Append(Settings.FunctionPrefix);
+#endif
             sb.Append(Name);
             sb.Append(Parameters.CallString());
 
