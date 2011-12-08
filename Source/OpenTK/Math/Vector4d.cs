@@ -147,6 +147,20 @@ namespace OpenTK
         }
 
         /// <summary>
+        /// Constructs a new Vector4d from the specified Vector3 and w component.
+        /// </summary>
+        /// <param name="v">The Vector3 to copy components from.</param>
+        /// <param name="w">The w component of the new Vector4.</param>
+        [Obsolete ("Use the Vector4d (Vector3d, double) constructor instead")]
+        public Vector4d(Vector3 v, double w)
+        {
+            X = v.X;
+            Y = v.Y;
+            Z = v.Z;
+            W = w;
+        }
+
+        /// <summary>
         /// Constructs a new Vector4d from the given Vector4d.
         /// </summary>
         /// <param name="v">The Vector4d to copy components from.</param>

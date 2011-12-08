@@ -1122,6 +1122,16 @@ namespace OpenTK
             Vector3d.Add(ref vec, ref temp, out result);
         }
 
+        /// <summary>Transform a Vector by the given Matrix</summary>
+        /// <param name="vec">The vector to transform</param>
+        /// <param name="mat">The desired transformation</param>
+        /// <param name="result">The transformed vector</param>
+        public static void Transform(ref Vector3d vec, ref Matrix4d mat, out Vector4d result)
+        {
+            Vector4d v4 = new Vector4d(vec.X, vec.Y, vec.Z, 1.0f);
+            Vector4d.Transform(ref v4, ref mat, out result);
+        }
+
         /// <summary>
         /// Transform a Vector3d by the given Matrix, and project the resulting Vector4 back to a Vector3
         /// </summary>
