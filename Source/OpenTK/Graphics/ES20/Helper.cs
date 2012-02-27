@@ -68,10 +68,12 @@ namespace OpenTK.Graphics.ES20
             GL.ClearColor(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
         }
 
+#if !IPHONE
         public static void ClearColor(Color4 color)
         {
             GL.ClearColor(color.R, color.G, color.B, color.A);
         }
+#endif
 
         #endregion
 
@@ -82,10 +84,12 @@ namespace OpenTK.Graphics.ES20
             GL.BlendColor(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
         }
 
+#if !IPHONE
         public static void BlendColor(Color4 color)
         {
             GL.BlendColor(color.R, color.G, color.B, color.A);
         }
+#endif
 
         #endregion
 
@@ -123,11 +127,13 @@ namespace OpenTK.Graphics.ES20
         {
             GL.Uniform4(location, vector.X, vector.Y, vector.Z, vector.W);
         }
-
+		
+#if !IPHONE
         public static void Uniform4(int location, Color4 color)
         {
             GL.Uniform4(location, color.R, color.G, color.B, color.A);
         }
+#endif
 
         public static void Uniform4(int location, Quaternion quaternion)
         {
