@@ -112,24 +112,27 @@ namespace OpenTK.Platform.Windows
                         RegistryKey regkey = FindRegistryKey(name);
                         string deviceDesc = (string)regkey.GetValue("DeviceDesc");
                         string deviceClass = (string)regkey.GetValue("Class");
-                        deviceDesc = deviceDesc.Substring(deviceDesc.LastIndexOf(';') + 1);
-
-                        if (!String.IsNullOrEmpty(deviceClass) && deviceClass.ToLower().Equals("mouse"))
+                        if (!String.IsNullOrEmpty(deviceDesc))
                         {
-                            if (!rawids.ContainsKey(new ContextHandle(dev.Device)))
-                            {
-                                // Register the device:
-                                RawInputDeviceInfo info = new RawInputDeviceInfo();
-                                int devInfoSize = API.RawInputDeviceInfoSize;
-                                Functions.GetRawInputDeviceInfo(dev.Device, RawInputDeviceInfoEnum.DEVICEINFO,
-                                        info, ref devInfoSize);
+                            deviceDesc = deviceDesc.Substring(deviceDesc.LastIndexOf(';') + 1);
 
-                                RegisterRawDevice(Window, deviceDesc);
-                                MouseState state = new MouseState();
-                                state.IsConnected = true;
-                                mice.Add(state);
-                                names.Add(deviceDesc);
-                                rawids.Add(new ContextHandle(dev.Device), mice.Count - 1);
+                            if (!String.IsNullOrEmpty(deviceClass) && deviceClass.ToLower().Equals("mouse"))
+                            {
+                                if (!rawids.ContainsKey(new ContextHandle(dev.Device)))
+                                {
+                                    // Register the device:
+                                    RawInputDeviceInfo info = new RawInputDeviceInfo();
+                                    int devInfoSize = API.RawInputDeviceInfoSize;
+                                    Functions.GetRawInputDeviceInfo(dev.Device, RawInputDeviceInfoEnum.DEVICEINFO,
+                                            info, ref devInfoSize);
+
+                                    RegisterRawDevice(Window, deviceDesc);
+                                    MouseState state = new MouseState();
+                                    state.IsConnected = true;
+                                    mice.Add(state);
+                                    names.Add(deviceDesc);
+                                    rawids.Add(new ContextHandle(dev.Device), mice.Count - 1);
+                                }
                             }
                         }
                     }
