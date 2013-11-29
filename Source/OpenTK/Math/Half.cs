@@ -375,6 +375,22 @@ namespace OpenTK
             return (double)h.ToSingle();
         }
 
+#if HAVE_NATIVE_TYPES
+		/// <summary>
+		/// Converts a OpenTK.Half to a System.nfloat.
+		/// </summary>
+		/// <param name="h">The value to convert.
+		/// A <see cref="Half"/>
+		/// </param>
+		/// <returns>The result of the conversion.
+		/// A <see cref="System.nfloat"/>
+		/// </returns>
+		public static implicit operator nfloat(Half h)
+		{
+		return (nfloat)h.ToSingle();
+		}
+#endif
+
         #endregion Conversions
 
         #region Constants
