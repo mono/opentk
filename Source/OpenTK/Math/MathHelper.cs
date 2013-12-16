@@ -121,18 +121,6 @@ namespace OpenTK
             return System.Math.Pow(2, System.Math.Ceiling(System.Math.Log((double)n, 2)));
         }
 
-#if HAVE_NATIVE_TYPES
-		/// <summary>
-		/// Returns the next power of two that is larger than the specified number.
-		/// </summary>
-		/// <param name="n">The specified number.</param>
-		/// <returns>The next power of two.</returns>
-		public static nfloat NextPowerOfTwo(nfloat n)
-		{
-			if (n < 0) throw new ArgumentOutOfRangeException("n", "Must be positive.");
-			return (nfloat) System.Math.Pow(2, System.Math.Ceiling(System.Math.Log((nfloat)n, 2)));
-		}
-#endif
         #endregion
 
         #region Factorial
@@ -194,25 +182,6 @@ namespace OpenTK
             }
         }
 
-#if HAVE_NATIVE_TYPES
-		/// <summary>
-		/// Returns an approximation of the inverse square root of left number.
-		/// </summary>
-		/// <param name="x">A number.</param>
-		/// <returns>An approximation of the inverse square root of the specified number, with an upper error bound of 0.001</returns>
-		/// <remarks>
-		/// This is an improved implementation of the the method known as Carmack's inverse square root
-		/// which is found in the Quake III source code. This implementation comes from
-		/// http://www.codemaestro.com/reviews/review00000105.html. For the history of this method, see
-		/// http://www.beyond3d.com/content/articles/8/
-		/// </remarks>
-		public static nfloat InverseSqrtFast(nfloat x)
-		{
-			// See the double overload...
-			return (nfloat)InverseSqrtFast ((float)x);
-		}
-#endif
-
         /// <summary>
         /// Returns an approximation of the inverse square root of left number.
         /// </summary>
@@ -256,20 +225,6 @@ namespace OpenTK
             return degrees * degToRad;
         }
 
-#if HAVE_NATIVE_TYPES
-		/// <summary>
-		/// Convert degrees to radians
-		/// </summary>
-		/// <param name="degrees">An angle in degrees</param>
-		/// <returns>The angle expressed in radians</returns>
-		public static nfloat DegreesToRadians(nfloat degrees)
-		{
-			const float degToRad = (float)System.Math.PI / 180.0f;
-			return degrees * degToRad;
-		}
-
-#endif
-
         /// <summary>
         /// Convert radians to degrees
         /// </summary>
@@ -280,19 +235,6 @@ namespace OpenTK
             const float radToDeg = 180.0f / (float)System.Math.PI;
             return radians * radToDeg;
         }
-
-#if HAVE_NATIVE_TYPES
-		/// <summary>
-		/// Convert radians to degrees
-		/// </summary>
-		/// <param name="radians">An angle in radians</param>
-		/// <returns>The angle expressed in degrees</returns>
-		public static nfloat RadiansToDegrees(nfloat radians)
-		{
-			const float radToDeg = 180.0f / (float)System.Math.PI;
-			return radians * radToDeg;
-		}
-#endif
 
         #endregion
 
@@ -321,20 +263,6 @@ namespace OpenTK
             a = b;
             b = temp;
         }
-			
-#if HAVE_NATIVE_TYPES
-		/// <summary>
-		/// Swaps two nfloat values.
-		/// </summary>
-		/// <param name="a">The first value.</param>
-		/// <param name="b">The second value.</param>
-		public static void Swap(ref nfloat a, ref nfloat b)
-		{
-			nfloat temp = a;
-			a = b;
-			b = temp;
-		}
-#endif
 
         #endregion
 
