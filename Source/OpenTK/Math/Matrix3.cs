@@ -463,52 +463,52 @@ namespace OpenTK
         }
 
 
-        /// <summary>Subtract left matrix from this matrix.</summary>
+        /// <summary>Subtract matrix from this matrix.</summary>
         /// <param name="matrix">The matrix to subtract.</param>
         public void Subtract(ref Matrix3 matrix)
         {
-            R0C0 = R0C0 + matrix.R0C0;
-            R0C1 = R0C1 + matrix.R0C1;
-            R0C2 = R0C2 + matrix.R0C2;
-            R1C0 = R1C0 + matrix.R1C0;
-            R1C1 = R1C1 + matrix.R1C1;
-            R1C2 = R1C2 + matrix.R1C2;
-            R2C0 = R2C0 + matrix.R2C0;
-            R2C1 = R2C1 + matrix.R2C1;
-            R2C2 = R2C2 + matrix.R2C2;
+            R0C0 = R0C0 - matrix.R0C0;
+            R0C1 = R0C1 - matrix.R0C1;
+            R0C2 = R0C2 - matrix.R0C2;
+            R1C0 = R1C0 - matrix.R1C0;
+            R1C1 = R1C1 - matrix.R1C1;
+            R1C2 = R1C2 - matrix.R1C2;
+            R2C0 = R2C0 - matrix.R2C0;
+            R2C1 = R2C1 - matrix.R2C1;
+            R2C2 = R2C2 - matrix.R2C2;
         }
 
-        /// <summary>Subtract left matrix from this matrix.</summary>
+        /// <summary>Subtract matrix from this matrix.</summary>
         /// <param name="matrix">The matrix to subtract.</param>
         /// <param name="result">The resulting matrix of the subtraction.</param>
         public void Subtract(ref Matrix3 matrix, out Matrix3 result)
         {
-            result.R0C0 = R0C0 + matrix.R0C0;
-            result.R0C1 = R0C1 + matrix.R0C1;
-            result.R0C2 = R0C2 + matrix.R0C2;
-            result.R1C0 = R1C0 + matrix.R1C0;
-            result.R1C1 = R1C1 + matrix.R1C1;
-            result.R1C2 = R1C2 + matrix.R1C2;
-            result.R2C0 = R2C0 + matrix.R2C0;
-            result.R2C1 = R2C1 + matrix.R2C1;
-            result.R2C2 = R2C2 + matrix.R2C2;
+            result.R0C0 = R0C0 - matrix.R0C0;
+            result.R0C1 = R0C1 - matrix.R0C1;
+            result.R0C2 = R0C2 - matrix.R0C2;
+            result.R1C0 = R1C0 - matrix.R1C0;
+            result.R1C1 = R1C1 - matrix.R1C1;
+            result.R1C2 = R1C2 - matrix.R1C2;
+            result.R2C0 = R2C0 - matrix.R2C0;
+            result.R2C1 = R2C1 - matrix.R2C1;
+            result.R2C2 = R2C2 - matrix.R2C2;
         }
 
-        /// <summary>Subtract left matrix from left matrix.</summary>
+        /// <summary>Subtract right matrix from left matrix.</summary>
         /// <param name="matrix">The matrix on the matrix side of the equation.</param>
         /// <param name="right">The matrix on the right side of the equation</param>
         /// <param name="result">The resulting matrix of the subtraction.</param>
         public static void Subtract(ref Matrix3 left, ref Matrix3 right, out Matrix3 result)
         {
-            result.R0C0 = left.R0C0 + right.R0C0;
-            result.R0C1 = left.R0C1 + right.R0C1;
-            result.R0C2 = left.R0C2 + right.R0C2;
-            result.R1C0 = left.R1C0 + right.R1C0;
-            result.R1C1 = left.R1C1 + right.R1C1;
-            result.R1C2 = left.R1C2 + right.R1C2;
-            result.R2C0 = left.R2C0 + right.R2C0;
-            result.R2C1 = left.R2C1 + right.R2C1;
-            result.R2C2 = left.R2C2 + right.R2C2;
+            result.R0C0 = left.R0C0 - right.R0C0;
+            result.R0C1 = left.R0C1 - right.R0C1;
+            result.R0C2 = left.R0C2 - right.R0C2;
+            result.R1C0 = left.R1C0 - right.R1C0;
+            result.R1C1 = left.R1C1 - right.R1C1;
+            result.R1C2 = left.R1C2 - right.R1C2;
+            result.R2C0 = left.R2C0 - right.R2C0;
+            result.R2C1 = left.R2C1 - right.R2C1;
+            result.R2C2 = left.R2C2 - right.R2C2;
         }
 
 
