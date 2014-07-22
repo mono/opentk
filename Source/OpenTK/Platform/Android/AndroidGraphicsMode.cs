@@ -33,6 +33,10 @@ namespace OpenTK.Platform.Android
 			get; private set;
 		}
 
+		public bool PBufferSupported {
+			get; internal set; 
+		}
+
 		public AndroidGraphicsMode () : base () {}
 
 		/// <summary>
@@ -196,6 +200,7 @@ namespace OpenTK.Platform.Android
 			var s = GetAttrib (egl, display, active_config, EGL11.EglSampleBuffers);
 			var samples = GetAttrib (egl, display, active_config, EGL11.EglSamples);
 			var bufs = GetAttrib (egl, display, active_config, EGL11.EglRenderBuffer);
+			var surfaceType = GetAttrib (egl, display, active_config, EGL11.EglSurfaceType);
 
 #if LOGGING
 			Log.Verbose ("AndroidGraphicsMode", "Requested graphics mode with red {0} green {1} blue {2} alpha {3} depth {4} stencil {5} buffers {6} samples {7}",
@@ -209,6 +214,7 @@ namespace OpenTK.Platform.Android
 			this.Samples = s > 0 ? samples : 0;
 			this.Config = active_config;
 			this.Buffers = bufs;
+			this.PBufferSupported = (surfaceType & EGL11.EglPbufferBit) == EGL11.EglPbufferBit;
 
 #if LOGGING
 			Log.Verbose ("AndroidGraphicsMode", "Selected  graphics mode with red {0} green {1} blue {2} alpha {3} depth {4} stencil {5} buffers {6}, samples {7}",

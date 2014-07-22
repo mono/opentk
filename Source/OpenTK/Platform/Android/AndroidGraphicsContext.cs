@@ -28,6 +28,7 @@ namespace OpenTK.Platform.Android {
 		IEGL10 egl;
 		AndroidWindow window;
 		bool disposed;
+		EGLSurface surface = null;
 
 		public EGLContext EGLContext { get; private set; }
 
@@ -39,6 +40,14 @@ namespace OpenTK.Platform.Android {
 			}
 		}
 
+		public bool PBufferSupported {
+			get {
+				if (Mode != null)
+					return Mode.PBufferSupported;
+				return false;
+			}
+		}
+			
 #if OPENTK_0
 		internal static AndroidGraphicsContext CreateGraphicsContext (GraphicsMode mode, IWindowInfo window,
 			IGraphicsContext sharedContext, GLContextVersion glVersion, GraphicsContextFlags flags)
@@ -110,6 +119,9 @@ namespace OpenTK.Platform.Android {
 				GraphicsMode = new AndroidGraphicsMode (window.Display, major, mode);
 			}
 
+			if (shared != null && !PBufferSupported)
+				throw new EglException ("Multiple Context's are not supported by this device");
+
 			if (Mode.Config == null)
 				Mode.Initialize (window.Display, major);
 
@@ -118,18 +130,25 @@ namespace OpenTK.Platform.Android {
 			 * OpenGL context is a somewhat heavy object.
 			 */
 			int EglContextClientVersion = 0x3098;
-			int[] attrib_list = null;
+			int[] attribList = null;
 			if (major >= 2)
-				attrib_list = new int [] {EglContextClientVersion, major, EGL10.EglNone };
+				attribList = new int [] {EglContextClientVersion, major, EGL10.EglNone };
 
 			EGLContext = egl.EglCreateContext (window.Display,
 						EGLConfig,
 						shared != null && shared.EGLContext != null ? shared.EGLContext : EGL10.EglNoContext,
-						attrib_list);
+						attribList);
 
 			if (EGLContext == EGL10.EglNoContext)
 				throw EglException.GenerateException ("EglCreateContext == EGL10.EglNoContext", egl, null);
 
+			if (shared != null && shared.EGLContext != null) {
+				egl.EglMakeCurrent (window.Display, EGL10.EglNoSurface, EGL10.EglNoSurface, EGL10.EglNoContext);
+				int[] pbufferAttribList = new int [] { EGL10.EglWidth, 64, EGL10.EglHeight, 64, EGL10.EglNone };
+				surface = window.CreatePBufferSurface (EGLConfig, pbufferAttribList);
+				if (surface == EGL10.EglNoSurface)
+					throw new EglException ("Could not create PBuffer for shared context!");
+			}
 		}
 
 		public bool Swap ()
@@ -161,10 +180,14 @@ namespace OpenTK.Platform.Android {
 
 		public void MakeCurrent (IWindowInfo win)
 		{
+			if (win == null) {
+				ClearCurrent ();
+				return;
+			}
 			var w = win as AndroidWindow;
 			if (w == null)
 				w = window;
-			var surf = w.Surface;
+			var surf = surface == null ? w.Surface : surface;
 			var ctx = EGLContext;
 
 			if (win == null) {
@@ -185,10 +208,15 @@ namespace OpenTK.Platform.Android {
 			}
 		}
 
+		void ClearCurrent() {
+			if (window.Display != null)
+				egl.EglMakeCurrent (window.Display, EGL10.EglNoSurface, EGL10.EglNoSurface, EGL10.EglNoContext);
+		}
+
 		void DestroyContext ()
 		{
 			if (EGLContext != null) {
-				egl.EglMakeCurrent (window.Display, EGL10.EglNoSurface, EGL10.EglNoSurface, EGL10.EglNoContext);
+				ClearCurrent ();
 				egl.EglDestroyContext (window.Display, EGLContext);
 				EGLContext = null;
 			}
@@ -331,6 +359,9 @@ namespace OpenTK.Platform.Android {
 
 		public void InitializeDisplay ()
 		{
+			if (eglDisplay != null && eglDisplay != EGL10.EglNoDisplay)
+				return;
+
 			IEGL10 egl = EGLContext.EGL.JavaCast<IEGL10> ();
 
 			if (eglDisplay == null)
@@ -348,7 +379,7 @@ namespace OpenTK.Platform.Android {
 		public void CreateSurface (EGLConfig config)
 		{
 			if (refHolder == null) {
-				CreatePBufferSurface (config);
+				eglSurface = CreatePBufferSurface (config);
 				return;
 			}
 
@@ -358,12 +389,13 @@ namespace OpenTK.Platform.Android {
 				throw EglException.GenerateException ("EglCreateWindowSurface", egl, null);
 		}
 
-		public void CreatePBufferSurface (EGLConfig config)
+		public EGLSurface CreatePBufferSurface (EGLConfig config, int[] attrib_list = null)
 		{
 			IEGL10 egl = EGLContext.EGL.JavaCast<IEGL10> ();
-			eglSurface = egl.EglCreatePbufferSurface (eglDisplay, config, null);
-			if (eglSurface == null || eglSurface == EGL10.EglNoSurface)
+			EGLSurface result = egl.EglCreatePbufferSurface (eglDisplay, config, attrib_list);
+			if (result == null || result == EGL10.EglNoSurface)
 				throw EglException.GenerateException ("EglCreatePBufferSurface", egl, null);
+			return result;
 		}
 
 /*
