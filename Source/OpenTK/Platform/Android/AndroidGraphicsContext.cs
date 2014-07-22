@@ -8,7 +8,6 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 
 using Android.Util;
 using Android.Views;
@@ -126,33 +125,27 @@ namespace OpenTK.Platform.Android {
 			if (Mode.Config == null)
 				Mode.Initialize (window.Display, major);
 
-			ClearCurrent ();
 			/*
 			 * Create an OpenGL ES context. We want to do this as rarely as possible, an
 			 * OpenGL context is a somewhat heavy object.
 			 */
 			int EglContextClientVersion = 0x3098;
-			int[] attrib_list = null;
+			int[] attribList = null;
 			if (major >= 2)
-				attrib_list = new int [] {EglContextClientVersion, major, EGL10.EglNone };
+				attribList = new int [] {EglContextClientVersion, major, EGL10.EglNone };
 
 			EGLContext = egl.EglCreateContext (window.Display,
 						EGLConfig,
 						shared != null && shared.EGLContext != null ? shared.EGLContext : EGL10.EglNoContext,
-						attrib_list);
+						attribList);
 
 			if (EGLContext == EGL10.EglNoContext)
 				throw EglException.GenerateException ("EglCreateContext == EGL10.EglNoContext", egl, null);
 
 			if (shared != null && shared.EGLContext != null) {
 				egl.EglMakeCurrent (window.Display, EGL10.EglNoSurface, EGL10.EglNoSurface, EGL10.EglNoContext);
-				List<int> pbuffer_attribs = new List<int> ();
-				pbuffer_attribs.Add (EGL10.EglWidth);
-				pbuffer_attribs.Add (64);
-				pbuffer_attribs.Add (EGL10.EglHeight);
-				pbuffer_attribs.Add (64);
-				pbuffer_attribs.Add (EGL10.EglNone);
-				surface = window.CreatePBufferSurface (EGLConfig, pbuffer_attribs.ToArray());
+				int[] pbufferAttribList = new int [] { EGL10.EglWidth, 64, EGL10.EglHeight, 64, EGL10.EglNone };
+				surface = window.CreatePBufferSurface (EGLConfig, pbufferAttribList);
 				if (surface == EGL10.EglNoSurface)
 					throw new EglException ("Could not create PBuffer for shared context!");
 			}
