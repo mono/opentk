@@ -126,6 +126,7 @@ namespace OpenTK.Platform.Android {
 			if (Mode.Config == null)
 				Mode.Initialize (window.Display, major);
 
+			ClearCurrent ();
 			/*
 			 * Create an OpenGL ES context. We want to do this as rarely as possible, an
 			 * OpenGL context is a somewhat heavy object.
