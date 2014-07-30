@@ -16,7 +16,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;MONODROID;MINIMAL;MOBILE;OPENTK_1;LOGGING</DefineConstants>
+    <DefineConstants>MONODROID;MINIMAL;MOBILE;OPENTK_1;LOGGING</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
