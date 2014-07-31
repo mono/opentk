@@ -54,8 +54,11 @@ namespace OpenTK.Platform.Android
 		bool sizeChanged = false;
 		bool requestRender = false;
 		bool autoSetContextOnRenderFrame = true;
+		bool renderOnUIThread = true;
+		bool callMakeCurrent = false;
 		CancellationTokenSource source;
-		Task renderThread;
+		Task renderTask;
+		Thread renderingThread;
 		ManualResetEvent pauseSignal;
 		global::Android.Graphics.Rect surfaceRect;
 		Size size;
@@ -105,6 +108,7 @@ namespace OpenTK.Platform.Android
 		{
 			log ("SurfaceCreated");
 
+			callMakeCurrent = true;
 			CreateSurface ();
 
 			// Surface size or format has changed
@@ -127,6 +131,8 @@ namespace OpenTK.Platform.Android
 		{
 			log ("SurfaceChanged");
 
+			callMakeCurrent = true;
+
 			Width = w;
 			Height = h;
 
@@ -134,7 +140,7 @@ namespace OpenTK.Platform.Android
 			surfaceRect = holder.SurfaceFrame;
 			size = new Size (surfaceRect.Right - surfaceRect.Left, surfaceRect.Bottom - surfaceRect.Top);
 
-			if (Context != null) {
+			if (Context != null && RenderOnUIThread) {
 				GLCalls.Viewport (0, 0, size.Width, size.Height);
 				GLCalls.Scissor (0, 0, size.Width, size.Height);
 			}
@@ -185,7 +191,8 @@ namespace OpenTK.Platform.Android
 			windowInfo.CreateSurface (Mode.Config);
 			hasSurface = true;
 
-			MakeCurrent ();
+			if (RenderOnUIThread)
+				MakeCurrent ();
 		}
 
 		protected virtual void DestroyFrameBuffer ()
@@ -365,7 +372,8 @@ namespace OpenTK.Platform.Android
 						windowInfo.CreateSurface (Mode.Config);	
 						hasSurface = true;
 					}
-					MakeCurrent ();
+					if (RenderOnUIThread)
+						MakeCurrent ();
 				}
 				catch(Exception)	{
 					hasSurface = false;
@@ -385,6 +393,9 @@ namespace OpenTK.Platform.Android
 		void CreateContext ()
 		{
 			log ("CreateContext");
+
+			if (!RenderOnUIThread && Thread.CurrentThread != renderingThread)
+				throw new Exception ("CreateContext called from wrong thread");
 
 			GraphicsContext = AndroidGraphicsContext.CreateGraphicsContext (GraphicsMode,
 								WindowInfo, GraphicsContext,
@@ -410,15 +421,17 @@ namespace OpenTK.Platform.Android
 
 			renderOn = true;
 			stopped = false;
+			callMakeCurrent = true;
 
 			if (source != null)
 				return;
 
 			source = new CancellationTokenSource ();
 
-			renderThread = Task.Factory.StartNew ((k) => {
+			renderTask = Task.Factory.StartNew ((k) => {
 				stopWatch = System.Diagnostics.Stopwatch.StartNew ();
 				tick = 0;
+				renderingThread = Thread.CurrentThread;
 				var token = (CancellationToken)k;
 				while (true) {
 					if (token.IsCancellationRequested)
@@ -428,10 +441,18 @@ namespace OpenTK.Platform.Android
 
 					pauseSignal.WaitOne ();
 
-					global::Android.App.Application.SynchronizationContext.Send (_ => {
-						RunIteration (token);
-					}, null);
+					if (!RenderOnUIThread && callMakeCurrent) {
+						log ("make current on render thread");
+						MakeCurrent ();
+						callMakeCurrent = false;
+					}
 
+					if (RenderOnUIThread)
+						global::Android.App.Application.SynchronizationContext.Send (_ => {
+							RunIteration (token);
+						}, null);
+					else
+						RunIteration (token);
 
 					if (updates > 0) {
 						var t = updates - (stopWatch.Elapsed.TotalMilliseconds - tick);
@@ -450,8 +471,14 @@ namespace OpenTK.Platform.Android
 					}
 				}
 			}, source.Token).ContinueWith ((t) => {
-				log ("Render Thread Exited");
-				source = null;
+				global::Android.Util.Log.Debug ("AndroidGameView", "Render Thread Exited");
+				if (!source.IsCancellationRequested) {
+					global::Android.Util.Log.Debug ("AndroidGameView", "going to restart it");
+					callMakeCurrent = true;
+					source = null;
+					StartThread ();
+				} else
+					source = null;
 			});
 		}
 
@@ -505,7 +532,7 @@ namespace OpenTK.Platform.Android
 		FrameEventArgs updateEventArgs;
 		FrameEventArgs renderEventArgs;
 
-		// this method is called on the main thread
+		// this method is called on the main thread if RenderOnUIThread is true
 		void RunIteration (CancellationToken token)
 		{
 			if (token.IsCancellationRequested)
@@ -562,6 +589,15 @@ namespace OpenTK.Platform.Android
 			}
 			set {
 				autoSetContextOnRenderFrame = value;
+			}
+		}
+
+		public bool RenderOnUIThread {
+			get {
+				return renderOnUIThread;
+			}
+			set {
+				renderOnUIThread = value;
 			}
 		}
 
