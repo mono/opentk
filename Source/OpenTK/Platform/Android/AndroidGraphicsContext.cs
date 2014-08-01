@@ -379,7 +379,7 @@ namespace OpenTK.Platform.Android {
 		public void CreateSurface (EGLConfig config)
 		{
 			if (refHolder == null) {
-				eglSurface = CreatePBufferSurface (config);
+				CreatePBufferSurface (config);
 				return;
 			}
 
@@ -389,13 +389,18 @@ namespace OpenTK.Platform.Android {
 				throw EglException.GenerateException ("EglCreateWindowSurface", egl, null);
 		}
 
-		public EGLSurface CreatePBufferSurface (EGLConfig config, int[] attrib_list = null)
+		public EGLSurface CreatePBufferSurface (EGLConfig config, int[] attribList)
 		{
 			IEGL10 egl = EGLContext.EGL.JavaCast<IEGL10> ();
-			EGLSurface result = egl.EglCreatePbufferSurface (eglDisplay, config, attrib_list);
+			EGLSurface result = egl.EglCreatePbufferSurface (eglDisplay, config, attribList);
 			if (result == null || result == EGL10.EglNoSurface)
 				throw EglException.GenerateException ("EglCreatePBufferSurface", egl, null);
 			return result;
+		}
+
+		public void CreatePBufferSurface (EGLConfig config)
+		{
+			eglSurface = CreatePBufferSurface (config, null);
 		}
 
 /*
