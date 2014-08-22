@@ -659,6 +659,7 @@ namespace OpenTK.Platform.iPhoneOS
 
         public override void LayoutSubviews()
         {
+			base.LayoutSubviews ();
             if (GraphicsContext == null)
                 return;
 
