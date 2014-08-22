@@ -190,7 +190,7 @@ namespace OpenTK.Platform.iPhoneOS
 
         [Export (selectorName)]
         [Preserve (Conditional = true)]
-        void RunIteration (NSTimer timer)
+        void RunIteration (NSObject parameter)
         {
 #if XAMCORE_2_0
             view.RunIteration (null);
