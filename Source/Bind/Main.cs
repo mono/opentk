@@ -27,6 +27,7 @@ namespace Bind
         ES11,
         ES20,
         ES30,
+        ES31,
         CL10,
     }
 
@@ -82,6 +83,9 @@ namespace Bind
                             case "out":
                             case "output":
                                 Settings.OutputPath = val;
+                                break;
+                            case "include":
+                                Settings.IncludePath = val;
                                 break;
                             case "l":
                             case "lang":
@@ -187,6 +191,10 @@ namespace Bind
                         Generator = new ESGenerator("ES30", dirName);
                         break;
 
+                    case GeneratorMode.ES31:
+                        Generator = new ESGenerator("ES31", dirName);
+                        break;
+
                     case GeneratorMode.CL10:
                         Generator = new CLGenerator("CL10", dirName);
                         break;
@@ -277,6 +285,14 @@ namespace Bind
                     Directory.GetParent(Settings.DefaultOutputPath).ToString(),
                     dirName);
                 Settings.DefaultOutputNamespace = "OpenTK.Graphics.ES30";
+            }
+            else if (arg == "es31")
+            {
+                mode = GeneratorMode.ES31;
+                Settings.DefaultOutputPath = Path.Combine(
+                    Directory.GetParent(Settings.DefaultOutputPath).ToString(),
+                    dirName);
+                Settings.DefaultOutputNamespace = "OpenTK.Graphics.ES31";
             }
             else if (arg == "cl" || arg == "cl10")
             {

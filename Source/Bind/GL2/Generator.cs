@@ -77,8 +77,12 @@ namespace Bind.GL2
             string overrides = Path.Combine(Settings.InputPath, Settings.OverridesFile);
             Type.GLTypes = SpecReader.ReadTypeMap(Path.Combine(Settings.InputPath, glTypemap));
             Type.CSTypes = SpecReader.ReadCSTypeMap(Path.Combine(Settings.InputPath, csTypemap));
+            if (!string.IsNullOrEmpty(Settings.IncludePath))
+                SpecReader.ReadEnums(Settings.IncludePath, Enums);
             SpecReader.ReadEnums(Path.Combine(Settings.InputPath, enumSpec), Enums);
             SpecReader.ReadEnums(overrides, Enums);
+            if (!string.IsNullOrEmpty(Settings.IncludePath))
+                SpecReader.ReadDelegates(Settings.IncludePath, Delegates);
             SpecReader.ReadDelegates(Path.Combine(Settings.InputPath, glSpec), Delegates);
             SpecReader.ReadDelegates(overrides, Delegates);
 

@@ -47,6 +47,8 @@ namespace Bind
         public static string EnumsFile = "Enums.cs";
         public static string WrappersFile = "GL.cs";
 
+	public static string IncludePath;
+
         // TODO: This code is too fragile.
         // Old enums code:
         public static string normalEnumsClassOverride = null;
