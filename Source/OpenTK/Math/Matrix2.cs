@@ -472,6 +472,7 @@ namespace OpenTK
         {
             float x = matrix.R0C0 * vector.X + matrix.R0C1 * vector.Y;
             vector.Y = matrix.R1C0 * vector.X + matrix.R1C1 * vector.Y;
+            vector.X = x;
         }
         public void Transform(ref Vector2 vector, out Vector2 result)
         {
