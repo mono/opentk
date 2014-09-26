@@ -3,7 +3,7 @@
 
   <replace>
 
-    <function name="GetError" extension="Core" profile="" category="3.0" version="3.0" obsolete="Use the GetErrorCode method, for compatability with Xamarin Android's OpenTK-1.0">
+    <function name="GetError" extension="Core" profile="" category="3.1" version="3.1" obsolete="Use the GetErrorCode method, for compatability with Xamarin Android's OpenTK-1.0">
       <returns>GLenum</returns>
     </function>
 
@@ -29,127 +29,127 @@
       <param name="infolog"><flow>out</flow></param>
     </function>
 
-    <function name="BlendEquation" extension="Core" version="3.0">
+    <function name="BlendEquation" extension="Core" version="3.1">
       <param name="mode"><type>BlendEquationMode</type></param>
     </function>
      
-    <function name="BlendEquationSeparate" extension="Core" version="3.0">
+    <function name="BlendEquationSeparate" extension="Core" version="3.1">
       <param name="modeRGB"><type>BlendEquationMode</type></param>
       <param name="modeAlpha"><type>BlendEquationMode</type></param>
     </function>
 
-    <function name="BlendFunc" extension="Core" version="3.0">
+    <function name="BlendFunc" extension="Core" version="3.1">
       <param name="sfactor"><type>BlendingFactorSrc</type></param>
       <param name="dfactor"><type>BlendingFactorDest</type></param>
     </function>
      
-    <function name="BlendFuncSeparate" extension="Core" version="3.0">
+    <function name="BlendFuncSeparate" extension="Core" version="3.1">
       <param name="srcRGB"><type>BlendingFactorSrc</type></param>
       <param name="dstRGB"><type>BlendingFactorDest</type></param>
       <param name="srcAlpha"><type>BlendingFactorSrc</type></param>
       <param name="dstAlpha"><type>BlendingFactorDest</type></param>
     </function>
 
-    <function name="BindBuffer" extension="Core" version="3.0">
+    <function name="BindBuffer" extension="Core" version="3.1">
       <param name="target"><type>BufferTarget</type></param>
     </function>
      
-    <function name="BufferData" extension="Core" version="3.0">
+    <function name="BufferData" extension="Core" version="3.1">
       <param name="target"><type>BufferTarget</type></param>
       <param name="usage"><type>BufferUsage</type></param>
     </function>
      
-    <function name="BufferSubData" extension="Core" version="3.0">
+    <function name="BufferSubData" extension="Core" version="3.1">
       <param name="target"><type>BufferTarget</type></param>
     </function>
 
-    <function name="VertexAttribPointer" extension="Core" version="3.0">
+    <function name="VertexAttribPointer" extension="Core" version="3.1">
       <param name="type"><type>VertexAttribPointerType</type></param>
     </function>
 
-    <function name="Hint" extension="Core" version="3.0">
+    <function name="Hint" extension="Core" version="3.1">
       <param name="target"><type>HintTarget</type></param>
       <param name="mode"><type>HintMode</type></param>
     </function>
      
-    <function name="StencilFunc" extension="Core" version="3.0">
+    <function name="StencilFunc" extension="Core" version="3.1">
       <param name="func"><type>StencilFunction</type></param>
     </function>
      
-    <function name="StencilFuncSeparate" extension="Core" version="3.0">
+    <function name="StencilFuncSeparate" extension="Core" version="3.1">
       <param name="face"><type>CullFaceMode</type></param>
       <param name="func"><type>StencilFunction</type></param>
     </function>
      
-    <function name="StencilMaskSeparate" extension="Core" version="3.0">
+    <function name="StencilMaskSeparate" extension="Core" version="3.1">
       <param name="face"><type>CullFaceMode</type></param>
     </function>
      
-    <function name="StencilOp" extension="Core" version="3.0">
+    <function name="StencilOp" extension="Core" version="3.1">
       <param name="fail"><type>StencilOp</type></param>
       <param name="zfail"><type>StencilOp</type></param>
       <param name="zpass"><type>StencilOp</type></param>
     </function>
      
-    <function name="StencilOpSeparate" extension="Core" version="3.0">
+    <function name="StencilOpSeparate" extension="Core" version="3.1">
       <param name="face"><type>CullFaceMode</type></param>
       <param name="fail"><type>StencilOp</type></param>
       <param name="zfail"><type>StencilOp</type></param>
       <param name="zpass"><type>StencilOp</type></param>
     </function>  
 
-    <function name="GetBufferParameter" extension="Core" version="3.0">
+    <function name="GetBufferParameter" extension="Core" version="3.1">
       <param name="target"><type>BufferTarget</type></param>
       <param name="pname"><type>BufferParameterName</type></param>
     </function>
 
-    <function name="Clear" extension="Core" version="3.0">
+    <function name="Clear" extension="Core" version="3.1">
       <param name="mask"><type>ClearBufferMask</type></param>
     </function>
 
-    <function name="CreateShader" extension="Core" version="3.0">
+    <function name="CreateShader" extension="Core" version="3.1">
       <param name="type"><type>ShaderType</type></param>
     </function>
 
-    <function name="GetShaderPrecisionFormat" extension="Core" version="3.0">
+    <function name="GetShaderPrecisionFormat" extension="Core" version="3.1">
       <param name="shadertype"><type>ShaderType</type></param>
       <param name="precisiontype"><type>ShaderPrecision</type></param>
     </function>
 
-    <function name="CullFace" extension="Core" version="3.0">
+    <function name="CullFace" extension="Core" version="3.1">
       <param name="mode"><type>CullFaceMode</type></param>
     </function>
 
-    <function name="DepthFunc" extension="Core" version="3.0">
+    <function name="DepthFunc" extension="Core" version="3.1">
       <param name="func"><type>DepthFunction</type></param>
     </function>
      
-    <function name="DrawArrays" extension="Core" version="3.0">
+    <function name="DrawArrays" extension="Core" version="3.1">
       <param name="mode"><type>BeginMode</type></param>
     </function>
      
-    <function name="DrawElements" extension="Core" version="3.0">
+    <function name="DrawElements" extension="Core" version="3.1">
       <param name="mode"><type>BeginMode</type></param>
       <param name="type"><type>DrawElementsType</type></param>
     </function>
 
-    <function name="Enable" extension="Core" version="3.0">
+    <function name="Enable" extension="Core" version="3.1">
       <param name="cap"><type>EnableCap</type></param>
     </function>
      
-    <function name="Disable" extension="Core" version="3.0">
+    <function name="Disable" extension="Core" version="3.1">
       <param name="cap"><type>EnableCap</type></param>
     </function>
      
-    <function name="IsEnabled" extension="Core" version="3.0">
+    <function name="IsEnabled" extension="Core" version="3.1">
       <param name="cap"><type>EnableCap</type></param>
     </function>
      
-    <function name="FrontFace" extension="Core" version="3.0">
+    <function name="FrontFace" extension="Core" version="3.1">
       <param name="mode"><type>FrontFaceDirection</type></param>
     </function>
       
-    <function name="GetActiveAttrib" extension="Core" version="3.0">
+    <function name="GetActiveAttrib" extension="Core" version="3.1">
       <param name="type"><type>ActiveAttribType</type><flow>out</flow></param>
       <param name="length"><flow>out</flow></param>
       <param name="size"><flow>out</flow></param>
@@ -157,131 +157,131 @@
       <param name="name"><flow>out</flow></param>
     </function>
 
-    <function name="GetActiveUniform" extension="Core" version="3.0">
+    <function name="GetActiveUniform" extension="Core" version="3.1">
       <param name="type"><type>ActiveUniformType</type></param>
     </function>
 
-    <function name="GetProgram" extension="Core" version="3.0">
+    <function name="GetProgram" extension="Core" version="3.1">
       <param name="pname"><type>ProgramParameter</type></param>
     </function>
 
-    <function name="GetShader" extension="Core" version="3.0">
+    <function name="GetShader" extension="Core" version="3.1">
       <param name="pname"><type>ShaderParameter</type></param> 
     </function>
 
-    <function name="GetString" extension="Core" version="3.0">
+    <function name="GetString" extension="Core" version="3.1">
       <param name="name"><type>StringName</type></param> 
     </function>
 
-    <function name="GetVertexAttrib" extension="Core" version="3.0">
+    <function name="GetVertexAttrib" extension="Core" version="3.1">
       <param name="pname"><type>VertexAttribParameter</type></param> 
     </function>
      
-    <function name="GetVertexAttribPointer" extension="Core" version="3.0">
+    <function name="GetVertexAttribPointer" extension="Core" version="3.1">
       <param name="pname"><type>VertexAttribPointerParameter</type></param> 
     </function>
       
-    <function name="ActiveTexture" extension="Core" version="3.0">
+    <function name="ActiveTexture" extension="Core" version="3.1">
       <param name="texture"><type>TextureUnit</type></param>
     </function>
  
-    <function name="BindTexture" extension="Core" version="3.0">
+    <function name="BindTexture" extension="Core" version="3.1">
       <param name="target"><type>TextureTarget</type></param>
     </function>
      
-    <function name="GenerateMipmap" extension="Core" version="3.0">
+    <function name="GenerateMipmap" extension="Core" version="3.1">
       <param name="target"><type>TextureTarget</type></param>
     </function>
      
-    <function name="GetTexParameter" extension="Core" version="3.0">
+    <function name="GetTexParameter" extension="Core" version="3.1">
       <param name="target"><type>TextureTarget</type></param>
       <param name="pname"><type>GetTextureParameter</type></param>
     </function>
      
-    <function name="TexParameter" extension="Core" version="3.0">
+    <function name="TexParameter" extension="Core" version="3.1">
       <param name="target"><type>TextureTarget</type></param>
       <param name="pname"><type>TextureParameterName</type></param>
     </function>
      
-    <function name="TexImage2D" extension="Core" version="3.0">
+    <function name="TexImage2D" extension="Core" version="3.1">
       <param name="target"><type>TextureTarget</type></param>
       <param name="internalformat"><type>PixelInternalFormat</type></param>
       <param name="format"><type>PixelFormat</type></param>
       <param name="type"><type>PixelType</type></param>
     </function>
      
-    <function name="TexSubImage2D" extension="Core" version="3.0">
+    <function name="TexSubImage2D" extension="Core" version="3.1">
       <param name="target"><type>TextureTarget</type></param>
       <param name="format"><type>PixelFormat</type></param>
       <param name="type"><type>PixelType</type></param>
     </function>
 
-    <function name="CopyTexImage2D" extension="Core" version="3.0">
+    <function name="CopyTexImage2D" extension="Core" version="3.1">
       <param name="target"><type>TextureTarget</type></param>
       <param name="internalformat"><type>PixelInternalFormat</type></param>
     </function>
      
-    <function name="CopyTexSubImage2D" extension="Core" version="3.0">
+    <function name="CopyTexSubImage2D" extension="Core" version="3.1">
       <param name="target"><type>TextureTarget</type></param>
     </function>
      
-    <function name="CompressedTexImage2D" extension="Core" version="3.0">
+    <function name="CompressedTexImage2D" extension="Core" version="3.1">
       <param name="target"><type>TextureTarget</type></param>
       <param name="internalformat"><type>PixelInternalFormat</type></param>
     </function>
      
-    <function name="CompressedTexSubImage2D" extension="Core" version="3.0">
+    <function name="CompressedTexSubImage2D" extension="Core" version="3.1">
       <param name="target"><type>TextureTarget</type></param>
       <param name="format"><type>PixelFormat</type></param>
     </function>
      
-    <function name="ReadPixels" extension="Core" version="3.0">
+    <function name="ReadPixels" extension="Core" version="3.1">
       <param name="format"><type>PixelFormat</type></param>
       <param name="type"><type>PixelType</type></param>
     </function>
      
-    <function name="CheckFramebufferStatus" extension="Core" version="3.0">
+    <function name="CheckFramebufferStatus" extension="Core" version="3.1">
       <returns>FramebufferErrorCode</returns>
       <param name="target"><type>FramebufferTarget</type></param>
     </function>
      
-    <function name="BindFramebuffer" extension="Core" version="3.0">
+    <function name="BindFramebuffer" extension="Core" version="3.1">
       <param name="target"><type>FramebufferTarget</type></param>
     </function>
 
-    <function name="BindRenderbuffer" extension="Core" version="3.0">
+    <function name="BindRenderbuffer" extension="Core" version="3.1">
       <param name="target"><type>RenderbufferTarget</type></param>
     </function>
       
-    <function name="RenderbufferStorage" extension="Core" version="3.0">
+    <function name="RenderbufferStorage" extension="Core" version="3.1">
       <param name="target"><type>RenderbufferTarget</type></param>
       <param name="internalformat"><type>RenderbufferInternalFormat</type></param>
     </function>
       
-    <function name="GetRenderbufferParameter" extension="Core" version="3.0">
+    <function name="GetRenderbufferParameter" extension="Core" version="3.1">
       <param name="target"><type>RenderbufferTarget</type></param>
       <param name="pname"><type>RenderbufferParameterName</type></param>
     </function>
       
-    <function name="FramebufferRenderbuffer" extension="Core" version="3.0">
+    <function name="FramebufferRenderbuffer" extension="Core" version="3.1">
       <param name="target"><type>FramebufferTarget</type></param>
       <param name="attachment"><type>FramebufferSlot</type></param>
       <param name="renderbuffertarget"><type>RenderbufferTarget</type></param>
     </function>
      
-    <function name="FramebufferTexture2D" extension="Core" version="3.0">
+    <function name="FramebufferTexture2D" extension="Core" version="3.1">
       <param name="target"><type>FramebufferTarget</type></param>
       <param name="attachment"><type>FramebufferSlot</type></param>
       <param name="textarget"><type>TextureTarget</type></param>
     </function>
     
-    <function name="GetFramebufferAttachmentParameter" extension="Core" version="3.0">
+    <function name="GetFramebufferAttachmentParameter" extension="Core" version="3.1">
       <param name="target"><type>FramebufferTarget</type></param>
       <param name="attachment"><type>FramebufferSlot</type></param>
       <param name="pname"><type>FramebufferParameterName</type></param>
     </function>
 
-    <function name="PixelStore" extension="Core" version="3.0">
+    <function name="PixelStore" extension="Core" version="3.1">
       <param name="pname"><type>PixelStoreParameter</type></param>
     </function>
     
@@ -307,201 +307,201 @@
 
     <!-- new ES3.0 methods -->
 
-    <function name="BeginQuery" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="BeginQuery" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>QueryTarget</type></param>
     </function>
-    <function name="BeginTransformFeedback" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="BeginTransformFeedback" extension="Core" profile="" category="3.1" version="3.1">
       <param name="primitiveMode"><type>TransformFeedbackPrimitiveType</type></param>
     </function>
-    <function name="BindBufferBase" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="BindBufferBase" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>BufferRangeTarget</type></param>
     </function>
-    <function name="BindBufferRange" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="BindBufferRange" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>BufferRangeTarget</type></param>
     </function>
-    <function name="BindTransformFeedback" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="BindTransformFeedback" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>TransformFeedbackTarget</type></param>
     </function>
-    <function name="BlitFramebuffer" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="BlitFramebuffer" extension="Core" profile="" category="3.1" version="3.1">
       <param name="mask"><type>ClearBufferMask</type></param>
       <param name="filter"><type>BlitFramebufferFilter</type></param>
     </function>
-    <function name="ClearBufferfi" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="ClearBufferfi" extension="Core" profile="" category="3.1" version="3.1">
       <param name="buffer"><type>ClearBufferCombined</type></param>
     </function>
-    <function name="ClearBufferfv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="ClearBufferfv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="buffer"><type>ClearBuffer</type></param>
     </function>
-    <function name="ClearBufferiv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="ClearBufferiv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="buffer"><type>ClearBuffer</type></param>
     </function>
-    <function name="ClearBufferuiv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="ClearBufferuiv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="buffer"><type>ClearBuffer</type></param>
     </function>
-    <function name="ClientWaitSyncStatus" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="ClientWaitSyncStatus" extension="Core" profile="" category="3.1" version="3.1">
       <returns type="WaitSyncStatus" />
       <param name="flags"><type>ClientWaitSyncFlags</type></param>
     </function>
-    <function name="CompressedTexImage3D" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="CompressedTexImage3D" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>TextureTarget3D</type></param>
       <param name="internalformat"><type>CompressedInternalFormat</type></param>
     </function>
-    <function name="CompressedTexSubImage3D" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="CompressedTexSubImage3D" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>TextureTarget3D</type></param>
       <param name="format"><type>CompressedInternalFormat</type></param>
     </function>
-    <function name="CopyBufferSubData" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="CopyBufferSubData" extension="Core" profile="" category="3.1" version="3.1">
       <param name="readTarget"><type>BufferTarget</type></param>
       <param name="writeTarget"><type>BufferTarget</type></param>
     </function>
-    <function name="CopyTexSubImage3D" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="CopyTexSubImage3D" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>TextureTarget3D</type></param>
     </function>
-    <function name="DrawArraysInstanced" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="DrawArraysInstanced" extension="Core" profile="" category="3.1" version="3.1">
       <param name="mode"><type>PrimitiveType</type></param>
     </function>
-    <function name="DrawBuffers" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="DrawBuffers" extension="Core" profile="" category="3.1" version="3.1">
       <param name="bufs"><type>DrawBufferMode</type></param>
     </function>
-    <function name="DrawElementsInstanced" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="DrawElementsInstanced" extension="Core" profile="" category="3.1" version="3.1">
       <param name="mode"><type>PrimitiveType</type></param>
       <param name="type"><type>DrawElementsType</type></param>
     </function>
-    <function name="DrawRangeElements" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="DrawRangeElements" extension="Core" profile="" category="3.1" version="3.1">
       <param name="mode"><type>PrimitiveType</type></param>
       <param name="type"><type>DrawElementsType</type></param>
     </function>
-    <function name="EndQuery" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="EndQuery" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>QueryTarget</type></param>
     </function>
-    <function name="FenceSync" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="FenceSync" extension="Core" profile="" category="3.1" version="3.1">
       <param name="condition"><type>SyncCondition</type></param>
       <param name="flags"><type>WaitSyncFlags</type></param>
     </function>
-    <function name="FlushMappedBufferRange" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="FlushMappedBufferRange" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>BufferTarget</type></param>
     </function>
-    <function name="FramebufferTextureLayer" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="FramebufferTextureLayer" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>FramebufferTarget</type></param>
       <param name="attachment"><type>FramebufferAttachment</type></param>
     </function>
-    <function name="GetActiveUniformBlockiv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetActiveUniformBlockiv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>ActiveUniformBlockParameter</type></param>
     </function>
-    <function name="GetActiveUniformsiv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetActiveUniformsiv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>ActiveUniformParameter</type></param>
     </function>
-    <function name="GetBufferParameteri64v" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetBufferParameteri64v" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>BufferTarget</type></param>
       <param name="pname"><type>BufferParameterName</type></param>
     </function>
-    <function name="GetBufferPointerv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetBufferPointerv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>BufferTarget</type></param>
       <param name="pname"><type>BufferPointer</type></param>
     </function>
-    <function name="GetInteger64i_v" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetInteger64i_v" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>GetIndexedPName</type></param>
     </function>
-    <function name="GetInteger64v" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetInteger64v" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>GetPName</type></param>
     </function>
-    <function name="GetIntegeri_v" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetIntegeri_v" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>GetIndexedPName</type></param>
     </function>
-    <function name="GetInternalformativ" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetInternalformativ" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>ImageTarget</type></param>
       <param name="internalformat"><type>SizedInternalFormat</type></param>
       <param name="pname"><type>InternalFormatParameter</type></param>
     </function>
-    <function name="GetQueryiv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetQueryiv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>QueryTarget</type></param>
       <param name="pname"><type>GetQueryParam</type></param>
     </function>
-    <function name="GetQueryObjectuiv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetQueryObjectuiv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>GetQueryObjectParam</type></param>
     </function>
-    <function name="GetSamplerParameterfv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetSamplerParameterfv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>SamplerParameterName</type></param>
     </function>
-    <function name="GetSamplerParameteriv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetSamplerParameteriv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>SamplerParameterName</type></param>
     </function>
-    <function name="GetStringi" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetStringi" extension="Core" profile="" category="3.1" version="3.1">
       <param name="name"><type>StringNameIndexed</type></param>
     </function>
-    <function name="GetSynciv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetSynciv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>SyncParameterName</type></param>
     </function>
-    <function name="GetTransformFeedbackVarying" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetTransformFeedbackVarying" extension="Core" profile="" category="3.1" version="3.1">
       <param name="type"><type>TransformFeedbackType</type></param>
     </function>
-    <function name="GetVertexAttribIiv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetVertexAttribIiv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>VertexAttribParameter</type></param>
     </function>
-    <function name="GetVertexAttribIuiv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="GetVertexAttribIuiv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>VertexAttribParameter</type></param>
     </function>
-    <function name="InvalidateFramebuffer" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="InvalidateFramebuffer" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>FramebufferTarget</type></param>
       <param name="attachments"><type>FramebufferAttachment</type></param>
     </function>
-    <function name="InvalidateSubFramebuffer" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="InvalidateSubFramebuffer" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>FramebufferTarget</type></param>
       <param name="attachments"><type>FramebufferAttachment</type></param>
     </function>
-    <function name="MapBufferRange" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="MapBufferRange" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>BufferTarget</type></param>
       <param name="access"><type>BufferAccessMask</type></param>
     </function>
-    <function name="ProgramParameteri" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="ProgramParameteri" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>ProgramParameterName</type></param>
     </function>
-    <function name="ReadBuffer" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="ReadBuffer" extension="Core" profile="" category="3.1" version="3.1">
       <param name="mode"><type>ReadBufferMode</type></param>
     </function>
 
-    <function name="RenderbufferStorageMultisample" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="RenderbufferStorageMultisample" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>RenderbufferTarget</type></param>
       <param name="internalformat"><type>RenderbufferInternalFormat</type></param>
     </function>
-    <function name="SamplerParameterf" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="SamplerParameterf" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>SamplerParameterName</type></param>
     </function>
-    <function name="SamplerParameterfv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="SamplerParameterfv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>SamplerParameterName</type></param>
     </function>
-    <function name="SamplerParameteri" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="SamplerParameteri" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>SamplerParameterName</type></param>
     </function>
-    <function name="SamplerParameteriv" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="SamplerParameteriv" extension="Core" profile="" category="3.1" version="3.1">
       <param name="pname"><type>SamplerParameterName</type></param>
     </function>
-    <function name="TexImage3D" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="TexImage3D" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>TextureTarget3D</type></param>
       <param name="format"><type>PixelFormat</type></param>
       <param name="internalformat"><type>TextureComponentCount</type></param>
       <param name="type"><type>PixelType</type></param>
     </function>
-    <function name="TexStorage2D" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="TexStorage2D" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>TextureTarget2D</type></param>
       <param name="internalformat"><type>SizedInternalFormat</type></param>
     </function>
-    <function name="TexStorage3D" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="TexStorage3D" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>TextureTarget3D</type></param>
       <param name="internalformat"><type>SizedInternalFormat</type></param>
     </function>
-    <function name="TexSubImage3D" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="TexSubImage3D" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>TextureTarget3D</type></param>
       <param name="format"><type>PixelFormat</type></param>
       <param name="type"><type>PixelType</type></param>
     </function>
-    <function name="TransformFeedbackVaryings" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="TransformFeedbackVaryings" extension="Core" profile="" category="3.1" version="3.1">
       <param name="bufferMode"><type>TransformFeedbackMode</type></param>
     </function>
-    <function name="UnmapBuffer" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="UnmapBuffer" extension="Core" profile="" category="3.1" version="3.1">
       <param name="target"><type>BufferTarget</type></param>
     </function>
-    <function name="VertexAttribIPointer" extension="Core" profile="" category="3.0" version="3.0">
+    <function name="VertexAttribIPointer" extension="Core" profile="" category="3.1" version="3.1">
       <param name="type"><type>VertexAttribIntegerType</type></param>
     </function>
 
