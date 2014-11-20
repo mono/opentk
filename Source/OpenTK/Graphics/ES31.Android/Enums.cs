@@ -1847,6 +1847,7 @@ namespace OpenTK.Graphics.ES31
     {
         FragmentShader = ((int)0X8b30),
         VertexShader = ((int)0X8b31),
+        ComputeShader = ((int)0x91B9),
     }
 
     public enum SizedInternalFormat : int

@@ -792,6 +792,7 @@
     <enum name="ShaderType">
       <token name="VertexShader" value="0X8b31" />
       <token name="FragmentShader" value="0X8b30" />
+      <token name="ComputeShader" value="0x91B9" />
     </enum>
   </add>
   <add>
