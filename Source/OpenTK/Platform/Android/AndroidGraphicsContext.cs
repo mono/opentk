@@ -139,10 +139,19 @@ namespace OpenTK.Platform.Android {
 			int EglContextClientVersion = 0x3098;
 			int EglContextMinorVersion = 0x30fb;
 			int[] attribList = null;
-			if (major >= 2)
-				attribList = new int [] { EglContextClientVersion, major,
-							  EglContextMinorVersion, minor,
-							  EGL10.EglNone };
+			if (major >= 2) {
+				string extensions = egl.EglQueryString (window.Display, Egl.Egl.EXTENSIONS);
+				if (minor > 0 && !string.IsNullOrEmpty (extensions) && extensions.Contains ("EGL_KHR_create_context")) {
+					attribList = new int [] { EglContextClientVersion, major,
+						EglContextMinorVersion, minor,
+						EGL10.EglNone
+					};
+				} else {
+					attribList = new int [] { EglContextClientVersion, major,
+						EGL10.EglNone
+					};
+				}
+			}
 
 			EGLContext = egl.EglCreateContext (window.Display,
 						EGLConfig,
