@@ -585,7 +585,7 @@ namespace OpenTK.Graphics.ES31
             internal extern static unsafe IntPtr MapBufferRange(OpenTK.Graphics.ES31.BufferTarget target, IntPtr offset, IntPtr length, OpenTK.Graphics.ES31.BufferAccessMask access);
             [System.Security.SuppressUnmanagedCodeSecurity()]
             [System.Runtime.InteropServices.DllImport(GL.Library, EntryPoint = "glMemoryBarrier", ExactSpelling = true)]
-            internal extern static void MemoryBarrier(UInt32 barriers);
+            internal extern static void MemoryBarrier(OpenTK.Graphics.ES31.MemoryBarrierMask barriers);
             [System.Security.SuppressUnmanagedCodeSecurity()]
             [System.Runtime.InteropServices.DllImport(GL.Library, EntryPoint = "glMemoryBarrierByRegion", ExactSpelling = true)]
             internal extern static void MemoryBarrierByRegion(UInt32 barriers);

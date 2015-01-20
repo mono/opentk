@@ -521,6 +521,9 @@
       <param name="target"><type>TextureTarget</type></param>
       <param name="pname"><type>GetTextureParameter</type></param>
     </function>
+    <function name="MemoryBarrier" extension="Core" profile="" category="3.1" version="3.1">
+      <param name="barriers"><type>MemoryBarrierMask</type></param>
+    </function>
 
   </replace>
 
