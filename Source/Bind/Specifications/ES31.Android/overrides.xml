@@ -1714,6 +1714,23 @@
       <token name="UnsignedInt" value="0X1405" />
     </enum>
 
+    <enum name="MemoryBarrierMask">
+      <token name="VERTEX_ATTRIB_ARRAY_BARRIER_BIT" value="0x00000001" />
+      <token name="ELEMENT_ARRAY_BARRIER_BIT" value="0x00000002" />
+      <token name="UNIFORM_BARRIER_BIT" value="0x00000004" />
+      <token name="TEXTURE_FETCH_BARRIER_BIT" value="0x00000008" />
+      <token name="SHADER_IMAGE_ACCESS_BARRIER_BIT" value="0x00000020" />
+      <token name="COMMAND_BARRIER_BIT" value="0x00000040" />
+      <token name="PIXEL_BUFFER_BARRIER_BIT" value="0x00000080" />
+      <token name="TEXTURE_UPDATE_BARRIER_BIT" value="0x00000100" />
+      <token name="BUFFER_UPDATE_BARRIER_BIT" value="0x00000200" />
+      <token name="FRAMEBUFFER_BARRIER_BIT" value="0x00000400" />
+      <token name="TRANSFORM_FEEDBACK_BARRIER_BIT" value="0x00000800" />
+      <token name="ATOMIC_COUNTER_BARRIER_BIT" value="0x00001000" />
+      <token name="SHADER_STORAGE_BARRIER_BIT" value="0x00002000" />
+      <token name="ALL_BARRIER_BITS" value="0xFFFFFFFF" />
+    </enum>
+
     <enum name="OpenGlescoreVersions" type="int" obsolete="Use OpenGlEsCoreVersions enum">
       <token name="ES_VERSION_2_0" value="1" />
       <token name="ES_VERSION_3_0" value="1" />

@@ -1552,6 +1552,25 @@ namespace OpenTK.Graphics.ES31
         NumSampleCounts = ((int)0x9380),
     }
 
+    [Flags]
+    public enum MemoryBarrierMask : int
+    {
+        VertexAttribArrayBarrierBit = ((int)0x00000001),
+        ElementArrayBarrierBit = ((int)0x00000002),
+        UniformBarrierBit = ((int)0x00000004),
+        TextureFetchBarrierBit = ((int)0x00000008),
+        ShaderImageAccessBarrierBit = ((int)0x00000020),
+        CommandBarrierBit = ((int)0x00000040),
+        PixelBufferBarrierBit = ((int)0x00000080),
+        TextureUpdateBarrierBit = ((int)0x00000100),
+        BufferUpdateBarrierBit = ((int)0x00000200),
+        FramebufferBarrierBit = ((int)0x00000400),
+        TransformFeedbackBarrierBit = ((int)0x00000800),
+        AtomicCounterBarrierBit = ((int)0x00001000),
+        ShaderStorageBarrierBit = ((int)0x00002000),
+        AllBarrierBits = unchecked((int)0xFFFFFFFF),
+    }
+
     [Obsolete("Use OpenGlEsCoreVersions enum")]
     public enum OpenGlescoreVersions : int
     {
