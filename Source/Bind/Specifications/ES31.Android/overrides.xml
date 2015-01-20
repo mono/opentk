@@ -1350,6 +1350,8 @@
     </enum>
 
     <enum name="BufferRangeTarget">
+      <token name="AtomicCounterBuffer" value="0x92C0"/>
+      <token name="ShaderStorageBuffer" value="0x90D2" />
       <token name="TransformFeedbackBuffer" value="0x8C8E" />
       <token name="UniformBuffer" value="0x8A11" />
     </enum>

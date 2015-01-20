@@ -1040,6 +1040,8 @@ namespace OpenTK.Graphics.ES31
     {
         UniformBuffer = ((int)0x8A11),
         TransformFeedbackBuffer = ((int)0x8C8E),
+        ShaderStorageBuffer = ((int)0x90D2),
+        AtomicCounterBuffer = ((int)0x92C0),
     }
 
     public enum BufferTarget : int
