@@ -315,6 +315,25 @@ namespace OpenTK
             R2C2 = 1 - 2 * (xx + yy);
         }
 
+        /// <summary>
+        /// Constructs a new instance.
+        /// </summary>
+        /// <param name="matrix">A Matrix4 to take the upper-left 3x3 from.</param>
+        public Matrix3(Matrix4 matrix)
+        {
+	    R0C0 = matrix.Row0.X;
+	    R0C1 = matrix.Row0.Y;
+	    R0C2 = matrix.Row0.Z;
+
+	    R1C0 = matrix.Row1.X;
+	    R1C1 = matrix.Row1.Y;
+	    R1C2 = matrix.Row1.Z;
+
+	    R2C0 = matrix.Row2.X;
+	    R2C1 = matrix.Row2.Y;
+	    R2C2 = matrix.Row2.Z;
+        }
+
         #endregion
 
         #region Equality
