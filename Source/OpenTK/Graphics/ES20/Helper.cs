@@ -135,6 +135,28 @@ namespace OpenTK.Graphics.ES20
             GL.Uniform4(location, quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
         }
 
+        public static void UniformMatrix2(int location, bool transpose, ref Matrix2 matrix)
+        {
+            unsafe
+            {
+                fixed (float* matrix_ptr = &matrix.R0C0)
+                {
+                    GL.UniformMatrix2(location, 1, transpose, matrix_ptr);
+                }
+            }
+        }
+
+        public static void UniformMatrix3(int location, bool transpose, ref Matrix3 matrix)
+        {
+            unsafe
+            {
+                fixed (float* matrix_ptr = &matrix.R0C0)
+                {
+                    GL.UniformMatrix3(location, 1, transpose, matrix_ptr);
+                }
+            }
+        }
+
         public static void UniformMatrix4(int location, bool transpose, ref Matrix4 matrix)
         {
             unsafe
