@@ -92,6 +92,7 @@ namespace OpenTK.Platform.Android
 			ContextRenderingApi = GLVersion.ES1;
 #endif
 			mHolder = Holder;
+			RenderThreadRestartRetries = 3;
 
 			// Add callback to get the SurfaceCreated etc events
 			mHolder.AddCallback (this);
@@ -249,6 +250,7 @@ namespace OpenTK.Platform.Android
 			targetFps = currentFps = 0;
 			avgFps = 1;
 #endif
+			restartCounter = 0;
 			StartThread ();
 		}
 
@@ -259,6 +261,7 @@ namespace OpenTK.Platform.Android
 			avgFps = targetFps = currentFps = updatesPerSecond;
 #endif
 			updates = 1000 / updatesPerSecond;
+			restartCounter = 0;
 			StartThread ();
 		}
 
@@ -415,6 +418,10 @@ namespace OpenTK.Platform.Android
 			}
 		}
 
+		int restartCounter = 0;
+		public int RenderThreadRestartRetries { get; set; }
+		public Exception RenderThreadException;
+
 		void StartThread ()
 		{
 			log ("StartThread");
@@ -427,64 +434,73 @@ namespace OpenTK.Platform.Android
 				return;
 
 			source = new CancellationTokenSource ();
-
+			RenderThreadException = null;
 			renderTask = Task.Factory.StartNew ((k) => {
-				stopWatch = System.Diagnostics.Stopwatch.StartNew ();
-				tick = 0;
-				renderingThread = Thread.CurrentThread;
-				var token = (CancellationToken)k;
-				while (true) {
-					if (token.IsCancellationRequested)
-						return;
+				try {
+					stopWatch = System.Diagnostics.Stopwatch.StartNew ();
+					tick = 0;
+					renderingThread = Thread.CurrentThread;
+					var token = (CancellationToken)k;
+					while (true) {
+						if (token.IsCancellationRequested)
+							return;
 
-					tick = stopWatch.Elapsed.TotalMilliseconds;
+						tick = stopWatch.Elapsed.TotalMilliseconds;
 
-					pauseSignal.WaitOne ();
+						pauseSignal.WaitOne ();
 
-					if (!RenderOnUIThread && callMakeCurrent) {
-						log ("make current on render thread");
-						MakeCurrent ();
-						callMakeCurrent = false;
-					}
+						if (!RenderOnUIThread && callMakeCurrent) {
+							MakeCurrent ();
+							callMakeCurrent = false;
+						}
 
-					if (RenderOnUIThread)
-						global::Android.App.Application.SynchronizationContext.Send (_ => {
+						if (RenderOnUIThread)
+							global::Android.App.Application.SynchronizationContext.Send (_ => {
+								RunIteration (token);
+							}, null);
+						else
 							RunIteration (token);
-						}, null);
-					else
-						RunIteration (token);
 
-					if (updates > 0) {
-						var t = updates - (stopWatch.Elapsed.TotalMilliseconds - tick);
-						if (t > 0) {
+						if (updates > 0) {
+							var t = updates - (stopWatch.Elapsed.TotalMilliseconds - tick);
+							if (t > 0) {
 #if TIMING
 //						Log.Verbose ("AndroidGameView", "took {0:F2}ms, should take {1:F2}ms, sleeping for {2:F2}", stopWatch.Elapsed.TotalMilliseconds - tick, updates, t);
 #endif
-							if (token.IsCancellationRequested)
-								return;
+								if (token.IsCancellationRequested)
+									return;
 
-							pauseSignal.Reset ();
-							pauseSignal.WaitOne ((int)t);
-							if (renderOn)
-								pauseSignal.Set ();
+								pauseSignal.Reset ();
+								pauseSignal.WaitOne ((int)t);
+								if (renderOn)
+									pauseSignal.Set ();
+							}
 						}
 					}
+				} catch (Exception e) {
+					RenderThreadException = e;
 				}
 			}, source.Token).ContinueWith ((t) => {
-				global::Android.Util.Log.Debug ("AndroidGameView", "Render Thread Exited");
 				if (!source.IsCancellationRequested) {
-					global::Android.Util.Log.Debug ("AndroidGameView", "going to restart it");
-					callMakeCurrent = true;
+					restartCounter++;
 					source = null;
-					StartThread ();
-				} else
+					if (restartCounter >= RenderThreadRestartRetries)
+						OnRenderThreadExited (null);
+					else {
+						callMakeCurrent = true;
+						StartThread ();
+					}
+				} else {
+					restartCounter = 0;
 					source = null;
+				}
 			});
 		}
 
 		void StopThread ()
 		{
 			log ("StopThread");
+			restartCounter = 0;
 			if (source == null)
 				return;
 
@@ -501,6 +517,7 @@ namespace OpenTK.Platform.Android
 		void PauseThread ()
 		{
 			log ("PauseThread");
+			restartCounter = 0;
 			if (source == null)
 				return;
 
@@ -511,6 +528,7 @@ namespace OpenTK.Platform.Android
 		void ResumeThread ()
 		{
 			log ("ResumeThread");
+			restartCounter = 0;
 			if (source == null)
 				return;
 

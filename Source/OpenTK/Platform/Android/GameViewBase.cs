@@ -658,6 +658,42 @@ namespace OpenTK
 		}
 
 		/// <summary>
+		///   Occurs when the separate rendering thread exits without cancelation request.
+		/// </summary>
+		/// <remarks>
+		/// </remarks>
+		public event EventHandler<EventArgs> RenderThreadExited;
+
+		/// <param name="e">
+		///   An <see cref="T:System.EventArgs" /> that contains the event data.
+		/// </param>
+		/// <summary>
+		///   Raises the
+		///   <see cref="E:OpenTK.Platform.Android.AndroidGameView.RenderThreadExited" />
+		///   event.
+		/// </summary>
+		/// <remarks>
+		///   <para>
+		///     The <c>OnRenderThreadExited</c> method also allows derived classes to handle
+		///     the event without attaching a delegate.  This is the preferred
+		///     technique for handling the event in a derived class.
+		///   </para>
+		///   <block subset="none" type="overrides">
+		///     When overriding <c>OnRenderThreadExited</c> in a derived class, be sure to
+		///     call the base class's <c>OnRenderThreadExited</c> method so that registered
+		///     delegates receive the event.
+		///   </block>
+		///   <block>
+		///   It is convenient place to handle errors.
+		///   </block>
+		/// </remarks>
+		protected virtual void OnRenderThreadExited (EventArgs e)
+		{
+			if (RenderThreadExited != null)
+				RenderThreadExited (this, e);
+		}
+
+		/// <summary>
 		///   Occurs when the value of
 		///   <see cref="P:OpenTK.Platform.Android.AndroidGameView.Title" />
 		///   changes.
