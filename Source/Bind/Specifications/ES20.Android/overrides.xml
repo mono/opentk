@@ -847,6 +847,23 @@
       <token name="StencilIndex" value="0x1901" />
     </enum>
     
+    <enum name="EXTReadFormatBgra" type="int">
+      <token name="BGRA_EXT" value="0x80E1" />
+    </enum>
+
+    <enum name="EXTTextureFormatBGRA8888" type="int">
+      <token name="BGRA_EXT" value="0x80E1" />
+    </enum>
+
+    <enum name="OESElementIndexUint" type="int">
+      <token name="UNSIGNED_INT" value="0x1405" />
+    </enum>
+
+    <enum name="OESRgb8Rgba8">
+      <token name="RGB8_OES" value="0x8051" />
+      <token name="RGBA8_OES" value="0x8058" />
+    </enum>
+
     <!-- obsolete enums -->
     <enum name="Amdcompressed3Dctexture" type="int" obsolete="Use an enum with a similar name and a capital letter at right places">
       <token name="##GL_3DcXAmd" value="0x87F9" />
