@@ -51,82 +51,83 @@ namespace CHeaderToXML
             Func<string, string[]> split = line =>
                 line.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
 
-            // Adds new enum to the accumulator (acc)
+			bool is_long_bitfield = false;
+
+			Func<string, string[]> get_tokens = (line) =>
+				line.Trim("/*. ".ToCharArray()).Split(" _-+".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(t =>
+					{
+						switch (t.ToLower())
+						{
+						case ("bitfield"):
+							is_long_bitfield = true;
+							return "Flags";
+
+						default:
+							if (t.ToLower() == Prefix)
+								return "";
+							else
+								return t;
+						}
+						/* gmcs bug 336258 */ return "";
+					}).ToArray();
+
+			Func<string[], string> get_name = tokens =>
+			{
+				// Some comments do not indicate enums. Cull them!
+				if (tokens[0].StartsWith("$"))
+					return null;
+
+				// Some names consist of more than one tokens. Concatenate them.
+				return tokens.Aggregate(
+					"",
+					(string n, string token) =>
+					{
+						n += String.IsNullOrEmpty(token) ? "" : Char.ToUpper(token[0]).ToString() + token.Substring(1);
+						return n;
+					},
+					n => n);
+			};
+
+			Func<string, string> translate_name = name =>
+			{
+				if (String.IsNullOrEmpty(name))
+					return name;
+
+				// Patch some names that are known to be problematic
+				if (name.EndsWith("FlagsFlags"))
+					name = name.Replace("FlagsFlags", "Flags");
+
+				switch (name)
+				{
+				case "OpenGLEScoreversions":
+				case "EGLVersioning":
+				case "OpenCLVersion": return "Version";
+				case "ShaderPrecision-SpecifiedTypes": return "ShaderPrecision";
+				case "Texturecombine+dot3": return "TextureCombine";
+				case "MacroNamesAndCorrespondingValuesDefinedByOpenCL": return null;
+				default: return name;
+				}
+			};
+
+			// Adds new enum to the accumulator (acc)
             Func<string, List<XElement>, List<XElement>> enum_name = (line, acc) =>
             {
-				bool is_long_bitfield = false;
-				
-                Func<string, string[]> get_tokens = (_) =>
-                    line.Trim("/*. ".ToCharArray()).Split(" _-+".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(t =>
-                    {
-                        switch (t.ToLower())
-                        {
-                            case ("bitfield"):
-								is_long_bitfield = true;
-								return "Flags";
-						
-                            default:
-                                if (t.ToLower() == Prefix)
-                                    return "";
-                                else
-                                    return t;
-                        }
-                        /* gmcs bug 336258 */ return "";
-                    }).ToArray();
+				Func<string, List<XElement>> add_enum = @enum =>
+				{
+					switch (@enum)
+					{
+					case null:
+					case "":
+						return acc;
+					default:
+						acc.Add(new XElement("enum",
+							new XAttribute("name", @enum),
+							new XAttribute("type", is_long_bitfield ? "long" : "int")));
+						return acc;
+					}
+				};
 
-                Func<string[], string> get_name = tokens =>
-                {
-                    // Some comments do not indicate enums. Cull them!
-                    if (tokens[0].StartsWith("$"))
-                        return null;
-                    
-                    // Some names consist of more than one tokens. Concatenate them.
-                    return tokens.Aggregate(
-                        "",
-                        (string n, string token) =>
-                        {
-                            n += String.IsNullOrEmpty(token) ? "" : Char.ToUpper(token[0]).ToString() + token.Substring(1);
-                            return n;
-                        },
-                        n => n);
-                };
-
-                Func<string, string> translate_name = name =>
-                {
-                    if (String.IsNullOrEmpty(name))
-                        return name;
-
-                    // Patch some names that are known to be problematic
-                    if (name.EndsWith("FlagsFlags"))
-                        name = name.Replace("FlagsFlags", "Flags");
-
-                    switch (name)
-                    {
-                        case "OpenGLEScoreversions":
-                        case "EGLVersioning":
-                        case "OpenCLVersion": return "Version";
-                        case "ShaderPrecision-SpecifiedTypes": return "ShaderPrecision";
-                        case "Texturecombine+dot3": return "TextureCombine";
-                        case "MacroNamesAndCorrespondingValuesDefinedByOpenCL": return null;
-                        default: return name;
-                    }
-                };
-
-                Func<string, List<XElement>> add_enum = @enum =>
-                {
-                    switch (@enum)
-                    {
-                        case null:
-                        case "":
-                            return acc;
-                        default:
-                            acc.Add(new XElement("enum",
-							    new XAttribute("name", @enum),
-                                new XAttribute("type", is_long_bitfield ? "long" : "int")));
-                            return acc;
-                    }
-                };
-
+				is_long_bitfield = false;
                 return add_enum(translate_name(get_name(get_tokens(line))));
             };
 
@@ -158,6 +159,12 @@ namespace CHeaderToXML
                             return acc;
                     }
 
+					// remove tokens for section defines, like
+					// #ifndef GL_KHR_debug
+					// #define GL_KHR_debug 1
+					if (tokens[2] == "1" && translate_name(get_name(get_tokens(tokens[1].Substring(Prefix.Length + 1)))) == acc.Last ().Attribute ("name").Value)
+						return acc;
+
                     acc[acc.Count - 1].Add(new XElement("token",
                         new XAttribute("name", tokens[1].Substring(Prefix.Length + 1)),   // remove prefix
                         new XAttribute("value", tokens[2])));
@@ -177,7 +184,6 @@ namespace CHeaderToXML
 
                 line = function_string + line;
                 function_string = "";
-
                 Func<string, string> GetExtension = name =>
                 {
                     var match = extensions.Match(name);
