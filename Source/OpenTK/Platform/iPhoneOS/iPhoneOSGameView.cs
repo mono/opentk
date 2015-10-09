@@ -438,7 +438,11 @@ namespace OpenTK.Platform.iPhoneOS
             get {
                 AssertValid();
                 var c = GetViewController();
+#if TVOS
+                if (c != null && (c.EdgesForExtendedLayout == UIRectEdge.None))
+#else
                 if (c != null && c.WantsFullScreenLayout)
+#endif
                     return WindowState.Fullscreen;
                 return WindowState.Normal;
             }
@@ -446,10 +450,18 @@ namespace OpenTK.Platform.iPhoneOS
                 AssertValid();
                 var c = GetViewController();
                 if (c != null) {
-                    if (c.WantsFullScreenLayout == (value == WindowState.Fullscreen)) {
-                        c.WantsFullScreenLayout = value == WindowState.Fullscreen;
+                    var fullscreen = (value == WindowState.Fullscreen);
+#if TVOS
+                    if ((c.EdgesForExtendedLayout == UIRectEdge.None) == fullscreen) {
+                        c.EdgesForExtendedLayout = fullscreen ? UIRectEdge.None : UIRectEdge.All;
                         OnWindowStateChanged(EventArgs.Empty);
                     }
+#else
+                    if (c.WantsFullScreenLayout == fullscreen) {
+                        c.WantsFullScreenLayout = fullscreen;
+                        OnWindowStateChanged(EventArgs.Empty);
+                    }
+#endif
                 }
             }
         }
