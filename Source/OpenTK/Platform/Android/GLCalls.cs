@@ -18,17 +18,17 @@ using All  = OpenTK.Graphics.ES11.All;
 using ES11 = OpenTK.Graphics.ES11;
 using ES20 = OpenTK.Graphics.ES20;
 using ES30 = OpenTK.Graphics.ES30;
-using ES31 = OpenTK.Graphics.ES31;
+//using ES31 = OpenTK.Graphics.ES31;
 
 namespace OpenTK
 {
 	sealed class GLCalls
 	{
-#if OPENTK_0
+		#if OPENTK_0
 		public GLContextVersion Version;
-#else
+		#else
 		public GLVersion Version;
-#endif
+		#endif
 
 		public delegate void glScissor (int x, int y, int width, int height);
 		public delegate void glViewport (int x, int y, int width, int height);
@@ -36,22 +36,22 @@ namespace OpenTK
 		public glScissor Scissor;
 		public glViewport Viewport;
 
-#if OPENTK_0
+		#if OPENTK_0
 		public static GLCalls GetGLCalls (GLContextVersion api)
 		{
-			switch (api) {
-			case GLContextVersion.Gles1_1:
-				return CreateES1 ();
-			case GLContextVersion.Gles2_0:
-				return CreateES2 ();
-			case GLContextVersion.Gles3_0:
-				return CreateES3 ();
-			case GLContextVersion.Gles3_1:
-				return CreateES31 ();
-			}
-			throw new ArgumentException ("api");
+		switch (api) {
+		case GLContextVersion.Gles1_1:
+		return CreateES1 ();
+		case GLContextVersion.Gles2_0:
+		return CreateES2 ();
+		case GLContextVersion.Gles3_0:
+		return CreateES3 ();
+		case GLContextVersion.Gles3_1:
+		return CreateES31 ();
 		}
-#else
+		throw new ArgumentException ("api");
+		}
+		#else
 		public static GLCalls GetGLCalls (GLVersion api)
 		{
 			switch (api) {
@@ -61,21 +61,21 @@ namespace OpenTK
 				return CreateES2 ();
 			case GLVersion.ES3:
 				return CreateES3 ();
-			case GLVersion.ES31:
-				return CreateES31 ();
+				//			case GLVersion.ES31:
+				//				return CreateES31 ();
 			}
 			throw new ArgumentException ("api");
 		}
-#endif
+		#endif
 
 		public static GLCalls CreateES1 ()
 		{
 			return new GLCalls () {
-#if OPENTK_0
+				#if OPENTK_0
 				Version                 = GLContextVersion.Gles1_1,
-#else
+				#else
 				Version                 = GLVersion.ES1,
-#endif
+				#endif
 				Scissor                 = (x, y, w, h)        => ES11.GL.Scissor(x, y, w, h),
 				Viewport                = (x, y, w, h)        => ES11.GL.Viewport(x, y, w, h),
 			};
@@ -84,40 +84,40 @@ namespace OpenTK
 		public static GLCalls CreateES2 ()
 		{
 			return new GLCalls () {
-#if OPENTK_0
+				#if OPENTK_0
 				Version                 = GLContextVersion.Gles2_0,
-#else
+				#else
 				Version                 = GLVersion.ES2,
-#endif
+				#endif
 				Scissor                 = (x, y, w, h)        => ES20.GL.Scissor(x, y, w, h),
 				Viewport                = (x, y, w, h)        => ES20.GL.Viewport(x, y, w, h),
-				};
+			};
 		}
 
 		public static GLCalls CreateES3 ()
 		{
 			return new GLCalls () {
-#if OPENTK_0
+				#if OPENTK_0
 				Version                 = GLContextVersion.Gles3_0,
-#else
+				#else
 				Version                 = GLVersion.ES3,
-#endif
+				#endif
 				Scissor                 = (x, y, w, h)        => ES30.GL.Scissor(x, y, w, h),
 				Viewport                = (x, y, w, h)        => ES30.GL.Viewport(x, y, w, h),
-				};
+			};
 		}
 
-		public static GLCalls CreateES31 ()
-		{
-			return new GLCalls () {
-#if OPENTK_0
-				Version                 = GLContextVersion.Gles3_1,
-#else
-				Version                 = GLVersion.ES31,
-#endif
-				Scissor                 = (x, y, w, h)        => ES31.GL.Scissor(x, y, w, h),
-				Viewport                = (x, y, w, h)        => ES31.GL.Viewport(x, y, w, h),
-				};
-		}
+		//		public static GLCalls CreateES31 ()
+		//		{
+		//			return new GLCalls () {
+		//#if OPENTK_0
+		//				Version                 = GLContextVersion.Gles3_1,
+		//#else
+		//				Version                 = GLVersion.ES31,
+		//#endif
+		//				Scissor                 = (x, y, w, h)        => ES31.GL.Scissor(x, y, w, h),
+		//				Viewport                = (x, y, w, h)        => ES31.GL.Viewport(x, y, w, h),
+		//				};
+		//		}
 	}
 }

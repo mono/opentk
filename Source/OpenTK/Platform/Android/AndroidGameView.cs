@@ -37,7 +37,7 @@ namespace OpenTK.Platform.Android
 #if OPENTK_0
 	[Register ("opentk/platform/android/AndroidGameView")]
 #else
-	[Register ("opentk_1_0/platform/android/AndroidGameView")]
+	[Register ("opentk_1_1/platform/android/AndroidGameView")]
 #endif
 	public partial class AndroidGameView : GameViewBase, ISurfaceHolderCallback
 	{
@@ -58,6 +58,7 @@ namespace OpenTK.Platform.Android
 		bool callMakeCurrent = false;
 		CancellationTokenSource source;
 		Task renderTask;
+		IExecutionContext renderingExecutionContext;
 		Thread renderingThread;
 		ManualResetEvent pauseSignal;
 		global::Android.Graphics.Rect surfaceRect;
@@ -71,15 +72,51 @@ namespace OpenTK.Platform.Android
 			Init ();
 		}
 
+		public AndroidGameView (Context context, IExecutionContext executionContext) : base (context)
+		{
+			this.renderingExecutionContext = executionContext;
+
+			if (executionContext != null) {
+				renderingThread = executionContext.Thread;
+				renderOnUIThread = false;
+			}
+
+			Init ();
+		}
 		[Register (".ctor", "(Landroid/content/Context;Landroid/util/AttributeSet;)V", "")]
 		public AndroidGameView (Context context, IAttributeSet attrs) : base (context, attrs)
 		{
 			Init ();
 		}
 
+		public AndroidGameView (Context context, IAttributeSet attrs, IExecutionContext executionContext) : base (context, attrs)
+		{
+			this.renderingExecutionContext = executionContext;
+
+			if (executionContext != null) {
+				renderingThread = executionContext.Thread;
+				renderOnUIThread = false;
+			}
+
+			Init ();
+		}
+
 		public AndroidGameView (IntPtr handle, global::Android.Runtime.JniHandleOwnership transfer)
             : base (handle, transfer)
 		{
+			Init ();
+		}
+
+		public AndroidGameView (IntPtr handle, global::Android.Runtime.JniHandleOwnership transfer, IExecutionContext executionContext)
+			: base (handle, transfer)
+		{
+			this.renderingExecutionContext = executionContext;
+
+			if (executionContext != null) {
+				renderingThread = executionContext.Thread;
+				renderOnUIThread = false;
+			}
+
 			Init ();
 		}
 
@@ -245,6 +282,11 @@ namespace OpenTK.Platform.Android
 		public override void Run ()
 		{
 			EnsureUndisposed ();
+
+			if (this.renderingExecutionContext != null)
+				throw new Exception ("When a rendering thread was specified it is not possible to start run-loop");
+
+
 			updates = 0;
 #if TIMING
 			targetFps = currentFps = 0;
@@ -256,7 +298,12 @@ namespace OpenTK.Platform.Android
 
 		public override void Run (double updatesPerSecond)
 		{
+			
 			EnsureUndisposed ();
+
+			if (this.renderingExecutionContext != null)
+				throw new Exception ("When a rendering thread was specified it is not possible to start run-loop");
+			
 #if TIMING
 			avgFps = targetFps = currentFps = updatesPerSecond;
 #endif
@@ -265,11 +312,34 @@ namespace OpenTK.Platform.Android
 			StartThread ();
 		}
 
+		private void InitializeGraphicsContext_IfExectutionContextSet(){
+			if (this.renderingExecutionContext == null)
+				return;
+
+			if (renderingExecutionContext.State == ExecutionState.Paused) {
+				renderingExecutionContext.Resume ();
+			}
+
+			renderingExecutionContext.Invoke (new Action (() => {
+				try {
+					MakeCurrent ();
+				} catch (Exception ex) {
+					OnRenderThreadExited(new EventArgs());
+				}
+			}), null);
+		}
+
+
 		public void Stop ()
 		{
 			EnsureUndisposed ();
 
-			StopThread ();
+			if (renderingExecutionContext == null) {
+				StopThread ();
+			} else {
+				renderingExecutionContext.Stop ();
+			}
+
 			UnloadInternal (EventArgs.Empty);
 		}
 
@@ -277,14 +347,28 @@ namespace OpenTK.Platform.Android
 		{
 			log ("Pause");
 			EnsureUndisposed ();
-			PauseThread ();
+
+			if (renderingExecutionContext == null) {
+				PauseThread ();
+			}
+			else{
+				renderingExecutionContext.Pause ();
+			}
 		}
 
 		public virtual void Resume ()
 		{
 			log ("Resume");
 			EnsureUndisposed ();
-			ResumeThread ();
+
+			if (renderingExecutionContext == null) {
+				ResumeThread ();
+			}
+			else{
+				renderingExecutionContext.Resume ();
+			}
+
+
 		}
 
 #region Private
@@ -615,7 +699,7 @@ namespace OpenTK.Platform.Android
 				return renderOnUIThread;
 			}
 			set {
-				renderOnUIThread = value;
+				renderOnUIThread = value && this.renderingExecutionContext == null;
 			}
 		}
 
@@ -738,6 +822,42 @@ namespace OpenTK.Platform.Android
 				}
 			}
 		}
+
+		public IExecutionContext RenderingExecutionContext{
+			get{
+				return renderingExecutionContext;
+			}
+			set{
+				this.renderingExecutionContext = value;
+
+				if (renderingExecutionContext != null) {
+					renderingThread = renderingExecutionContext.Thread;
+					renderOnUIThread = false;
+				}
+			}
+		}
+
+		protected override void OnLoad (EventArgs e)
+		{
+			InitializeGraphicsContext_IfExectutionContextSet ();
+
+			base.OnLoad (e);
+		}
+
+		protected void RequestRenderFrame(){
+			if (renderingExecutionContext == null)
+				throw new Exception ("This method can only be used when executionContext was specified");
+			
+			global::Android.App.Application.SynchronizationContext.Send (_ => {
+				if (!disposed && renderingExecutionContext.State == ExecutionState.Executing) {
+					renderingExecutionContext.BeginInvoke (new Action (() => {
+						OnRenderFrame (new FrameEventArgs ());
+					}), null);			
+				}
+			}, null);
+		}
+
+
 #endregion
 	}
 }
