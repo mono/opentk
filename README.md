@@ -20,16 +20,17 @@ Note : in this implementation we do not provide any timer to periodically call O
     public class MainActivity : Activity
 	  {
 		  GLView1 view;
-		  Rendering_ExecutionContext_Android rendering_ExecutionContext;
+		  //To gurantee that the looper is always alive
+		  static Rendering_ExecutionContext_Android rendering_ExecutionContext = new Rendering_ExecutionContext_Android();
     
 		  protected override void OnCreate (Bundle bundle)
 		  {
 			  base.OnCreate (bundle);
 
-			  rendering_ExecutionContext = new Rendering_ExecutionContext_Android ();
 
 			  //Starts the looper
-			  rendering_ExecutionContext.Start ();
+			  if(rendering_ExecutionContext.State != ExecutionState.Executing)
+			  	rendering_ExecutionContext.Start ();
 
 			  view = new GLView1 (this);
 			  view.RenderingExecutionContext = rendering_ExecutionContext;
