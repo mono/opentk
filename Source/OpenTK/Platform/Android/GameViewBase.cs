@@ -33,7 +33,7 @@ namespace OpenTK
 	#if OPENTK_0
 		[Register ("opentk/GameViewBase")]
 	#else
-		[Register ("opentk_1_0/GameViewBase")]
+		[Register ("opentk_1_1/GameViewBase")]
 	#endif
 	public abstract class GameViewBase : SurfaceView, IGameWindow
 	{
