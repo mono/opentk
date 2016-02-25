@@ -271,9 +271,6 @@ namespace OpenTK.Platform.Android.Threading
 			}
 		}
 
-		/// <summary>
-		/// Pauses delegate execution in the delegate queue.
-		/// </summary>
 		public void Pause()
 		{
 			if (disposed)
@@ -281,7 +278,9 @@ namespace OpenTK.Platform.Android.Threading
 				throw new ObjectDisposedException(string.Empty, OBJECT_DISPOSED_EXCEPTION);
 			}
 
-			Monitor.Enter(lockObject);
+			if (!Monitor.IsEntered (lockObject)) {
+				Monitor.Enter (lockObject);
+			}
 		}
 
 		/// <summary>
@@ -294,7 +293,9 @@ namespace OpenTK.Platform.Android.Threading
 				throw new ObjectDisposedException(string.Empty, OBJECT_DISPOSED_EXCEPTION);
 			}
 
-			Monitor.Exit(lockObject);
+			if(Monitor.IsEntered(lockObject)){
+				Monitor.Exit (lockObject);
+			}
 		}
 
 		// Processes and invokes delegates.
