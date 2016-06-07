@@ -18,7 +18,6 @@ using OpenTK.Platform;
 using OpenTK.Platform.Android;
 
 using Android.Content;
-using Android.Util;
 using Android.Views;
 using Android.Runtime;
 
@@ -43,7 +42,7 @@ namespace OpenTK
 		}
 
 		[Register (".ctor", "(Landroid/content/Context;Landroid/util/AttributeSet;)V", "")]
-		public GameViewBase (Context context, IAttributeSet attrs) : base (context, attrs)
+		public GameViewBase (Context context, global::Android.Util.IAttributeSet attrs) : base (context, attrs)
 		{
 		}
 
