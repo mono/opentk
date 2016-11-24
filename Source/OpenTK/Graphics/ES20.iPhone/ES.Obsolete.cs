@@ -4233,15 +4233,15 @@ namespace OpenTK.Graphics.ES20
 #endif // !XAMCORE_3_0
         }
 
-#if !XAMCORE_3_0
         internal static partial class Core
         {
-	    [Obsolete]
-            [System.Security.SuppressUnmanagedCodeSecurity()]
-            [System.Runtime.InteropServices.DllImport(GL.Library, EntryPoint = "glGetQueryObjectivEXT", ExactSpelling = true)]
-            internal extern static unsafe void GetQueryObjectivEXT(UInt32 id, OpenTK.Graphics.ES20.All pname, [OutAttribute] Int32* @params);
-	}
+#if !XAMCORE_3_0
+			internal static unsafe void GetQueryObjectivEXT(UInt32 id, OpenTK.Graphics.ES20.All pname, [OutAttribute] Int32* @params)
+			{
+				throw new NotSupportedException ("Removed in iOS6");
+			}
 #endif // !XAMCORE_3_0
+		}
     }
 
     [Obsolete]
