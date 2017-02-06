@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -536,6 +536,13 @@
     <Compile Include="..\..\Source\OpenTK\Graphics\ES20\ErrorHelper.cs">
       <Link>Graphics\ES20\ErrorHelper.cs</Link>
     </Compile>
+    <Compile Include="Graphics\EL31.Android\Core.cs" />
+    <Compile Include="Graphics\EL31.Android\Delegates.cs" />
+    <Compile Include="Graphics\EL31.Android\Enums.cs" />
+    <Compile Include="Graphics\EL31.Android\ES.cs" />
+    <Compile Include="Graphics\EL31.Android\ES.Obsolete.cs" />
+    <Compile Include="Graphics\EL31.Android\Helper.cs" />
+    <Compile Include="Math\Matrix2.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
 </Project>
