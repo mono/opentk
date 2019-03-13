@@ -446,19 +446,19 @@ namespace OpenTK
         /// <returns>True, if other is equal to this instance; false otherwise.</returns>
         public bool Equals(Half other)
         {
-            short aInt, bInt;
-            unchecked { aInt = (short)other.bits; }
-            unchecked { bInt = (short)this.bits; }
+            short xInt, yInt;
+            unchecked { xInt = (short)other.bits; }
+            unchecked { yInt = (short)this.bits; }
 
-            // Make aInt lexicographically ordered as a twos-complement int
-            if (aInt < 0)
-                aInt = (short)(0x8000 - aInt);
+            // Make xInt lexicographically ordered as a twos-complement int
+            if (xInt < 0)
+                xInt = (short)(0x8000 - xInt);
 
-            // Make bInt lexicographically ordered as a twos-complement int
-            if (bInt < 0)
-                bInt = (short)(0x8000 - bInt);
+            // Make yInt lexicographically ordered as a twos-complement int
+            if (yInt < 0)
+                yInt = (short)(0x8000 - yInt);
 
-            short intDiff = System.Math.Abs((short)(aInt - bInt));
+            short intDiff = System.Math.Abs((short)(xInt - yInt));
 
             if (intDiff <= maxUlps)
                 return true;
