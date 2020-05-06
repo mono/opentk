@@ -10,6 +10,8 @@
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <AssemblyName>OpenTKA</AssemblyName>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -244,6 +246,12 @@
     </Compile>
     <Compile Include="..\..\Source\OpenTK\Math\Quaternion.cs">
       <Link>Math\Quaternion.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Math\Matrix2.cs">
+      <Link>Math\Matrix2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Math\Matrix2d.cs">
+      <Link>Math\Matrix2d.cs</Link>
     </Compile>
     <Compile Include="..\..\Source\OpenTK\Math\Matrix3d.cs">
       <Link>Math\Matrix3d.cs</Link>
@@ -499,6 +507,21 @@
     </Compile>
     <Compile Include="..\..\Source\OpenTK\Input\ButtonState.cs">
       <Link>Input\ButtonState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Platform\Android\Threading\IExecutionContext.cs">
+      <Link>Platform\Android\Threading\IExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Platform\Android\Threading\AsyncResult.cs">
+      <Link>Platform\Android\Threading\AsyncResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Platform\Android\Threading\BackgroundLooper.cs">
+      <Link>Platform\Android\Threading\BackgroundLooper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Platform\Android\Threading\DelegateQueueAsyncResult.cs">
+      <Link>Platform\Android\Threading\DelegateQueueAsyncResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Platform\Android\Threading\Rendering_ExecutionContext_Android.cs">
+      <Link>Platform\Android\Threading\Rendering_ExecutionContext_Android.cs</Link>
     </Compile>
     <Compile Include="..\..\Source\OpenTK\Platform\Android\AndroidGameView.cs">
       <Link>Platform\Android\AndroidGameView.cs</Link>
