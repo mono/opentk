@@ -221,9 +221,16 @@ namespace OpenTK.Audio.OpenAL
         /// <param name="value1">The value to set the attribute to.</param>
         /// <param name="value2">The value to set the attribute to.</param>
         /// <param name="value3">The value to set the attribute to.</param>
-        [DllImport(AL.Lib, EntryPoint = "alListener3f", ExactSpelling = true, CallingConvention = AL.Style), SuppressUnmanagedCodeSecurity()]
-        public static extern void Listener(ALListener3f param, float value1, float value2, float value3);
+        // MUST NOT USE THIS BECAUSE OF PASS-BY-VALUE FLOATS BUG.
+        //[DllImport(AL.Lib, EntryPoint = "alListener3f", ExactSpelling = true, CallingConvention = AL.Style), SuppressUnmanagedCodeSecurity()]
+        //public static extern void Listener(ALListener3f param, float value1, float value2, float value3);
         // AL_API void AL_APIENTRY alListener3f( ALenum param, ALfloat value1, ALfloat value2, ALfloat value3 );
+
+        public static void Listener(ALListener3f param, float value1, float value2, float value3)
+        {
+            float[] vec = new float[] { value1, value2, value3 };
+            Listener((ALListenerfv)param, ref vec); // Can convert enum types because they map to the same thing in C++.
+        }
 
         /// <summary>This function sets a Math.Vector3 property for the listener.</summary>
         /// <param name="param">The name of the attribute to set: ALListener3f.Position, ALListener3f.Velocity</param>
@@ -578,9 +585,28 @@ namespace OpenTK.Audio.OpenAL
         /// <param name="value1">The three ALfloat values which the attribute will be set to.</param>
         /// <param name="value2">The three ALfloat values which the attribute will be set to.</param>
         /// <param name="value3">The three ALfloat values which the attribute will be set to.</param>
-        [CLSCompliant(false), DllImport(AL.Lib, EntryPoint = "alSource3f", ExactSpelling = true, CallingConvention = AL.Style), SuppressUnmanagedCodeSecurity()]
-        public static extern void Source(uint sid, ALSource3f param, float value1, float value2, float value3);
+        // THIS FUNCTION MUST NOT BE USED SINCE IT CAUSES BUG
+        //[CLSCompliant(false), DllImport(AL.Lib, EntryPoint = "alSource3f", ExactSpelling = true, CallingConvention = AL.Style), SuppressUnmanagedCodeSecurity()]
+        //public static extern void Source(uint sid, ALSource3f param, float value1, float value2, float value3);
         // AL_API void AL_APIENTRY alSource3f( ALuint sid, ALenum param, ALfloat value1, ALfloat value2, ALfloat value3 );
+       
+        // We must convert pass-by-value multiple floats to pointer type because of some strange corruption between the C# and C++ interop layer.
+        public static void Source(uint sid, ALSource3f param, float value1, float value2, float value3)
+        {
+            float[] vec = new float[] { value1, value2, value1 };
+
+            unsafe
+            {
+                fixed (float* ptr = vec)
+                {
+                    SourcePrivate(sid, param, ptr); // Technicaly the 'param' type should be ALSourcefv but all values are the same in the end in the C++ lib.
+                }
+            }
+        }
+
+        [CLSCompliant(false), DllImport(AL.Lib, EntryPoint = "alSourcefv", ExactSpelling = true, CallingConvention = AL.Style), SuppressUnmanagedCodeSecurity()]
+        public unsafe static extern void SourcePrivate(uint sid, ALSource3f param, float* values);
+       // AL_API ALvoid AL_APIENTRY alSourcefv(ALuint source, ALenum param, const ALfloat* values)
 
         /// <summary>This function sets a source property requiring three floating-point values.</summary>
         /// <param name="sid">Source name whose attribute is being set.</param>

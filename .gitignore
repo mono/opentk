@@ -1,1 +1,15 @@
 *.userprefs
+/.vs/OpenTK/v14/.suo
+/Projects/OpenTK.Android/.vs/OpenTK.Android/v14/.suo
+/Projects/OpenTK.Android/UpgradeLog.htm
+/Source/Bind/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/Source/Build.UpdateVersion/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/Source/Compatibility/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/Source/Converter/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/Source/Examples/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/Source/GLControl/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/Source/OpenTK/.vs/OpenTK/v14/.suo
+/Source/OpenTK/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/Source/OpenTK/obj/Debug/OpenTK.Properties.Resources.resources
+/Source/OpenTK/obj/Debug/OpenTK.csproj.FileListAbsolute.txt
+/Source/OpenTK/obj/Debug/OpenTK.csproj.GenerateResource.Cache
