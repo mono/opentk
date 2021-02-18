@@ -12,6 +12,8 @@ resources:
       ref: refs/heads/main
 variables:
   - group: Xamarin-Secrets
+  - name: Configuration
+    value: Release
 stages:
   - stage: Build
     jobs:
@@ -23,5 +25,4 @@ stages:
           displayName: 'Build Projects\OpenTK.Android\OpenTK.Android.csproj'
           inputs:
             solution: Projects\OpenTK.Android\OpenTK.Android.csproj
-            configuration: Release
             msbuildArguments: /restore /v:diag
