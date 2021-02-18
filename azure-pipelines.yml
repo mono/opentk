@@ -1,0 +1,56 @@
+trigger:
+  branches:
+    include:
+      - main
+      - refs/tags/*
+resources:
+  repositories:
+    - repository: internal-templates
+      type: github
+      name: xamarin/yaml-templates
+      endpoint: xamarin
+      ref: refs/heads/main
+variables:
+  - group: Xamarin-Secrets
+  - name: Configuration
+    value: Release
+  - name: DotNetVersion
+    value: 6.0.100-preview.1.21103.13
+  - name: DotNet.Cli.Telemetry.OptOut
+    value: true
+  - name: Android.Msi
+    value: https://dl.internalx.com/vsts-devdiv/Xamarin.Android/public/net6/4451481/master/05bb8e0eae11ae6a73838b13cf91ee2433169dff/Microsoft.NET.Workload.Android.11.0.200.85.msi
+  - name: Android.Pkg
+    value: https://dl.internalx.com/vsts-devdiv/Xamarin.Android/public/net6/4451481/master/05bb8e0eae11ae6a73838b13cf91ee2433169dff/Microsoft.NET.Workload.Android-11.0.200-ci.master.85.pkg
+  - name: iOS.Msi
+    value: https://bosstoragemirror.azureedge.net/wrench/main/f01fde5cd9a7ffffcdc8d241200c35988700fa00/4449408/package/Microsoft.NET.Workload.iOS.14.3.100-ci.main.1079.msi
+  - name: iOS.Pkg
+    value: https://bosstoragemirror.azureedge.net/wrench/main/f01fde5cd9a7ffffcdc8d241200c35988700fa00/4449408/package/notarized/Microsoft.iOS.Bundle.14.3.100-ci.main.1079.pkg
+  
+stages:
+  - stage: Build
+    jobs:
+    - job: buildWindows
+      pool:
+        vmImage: windows-latest
+      variables:
+        LogDirectory: $(Build.ArtifactStagingDirectory)\logs
+      steps:
+      - powershell: |
+          $ProgressPreference = 'SilentlyContinue'
+          Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile dotnet-install.ps1
+          & .\dotnet-install.ps1 -Version $(DotNetVersion) -InstallDir "$env:ProgramFiles\dotnet\" -Verbose
+          & dotnet --list-sdks
+        displayName: install .NET $(DotNetVersion)
+        errorActionPreference: stop
+      - powershell: |
+          & dotnet tool install --global boots
+          & boots $(Android.Msi)
+          & boots $(iOS.Msi)
+        displayName: install .NET workloads
+        errorActionPreference: stop
+      - powershell: |
+          & dotnet build Projects\OpenTK.Android\OpenTK.Android.csproj -c Debug   -bl:$(LogDirectory)\Debug.binlog
+          & dotnet build Projects\OpenTK.Android\OpenTK.Android.csproj -c Release -bl:$(LogDirectory)\Release.binlog
+        displayName: build samples
+        errorActionPreference: stop
