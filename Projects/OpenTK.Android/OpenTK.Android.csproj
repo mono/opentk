@@ -9,7 +9,7 @@
     <RootNamespace>OpenTKA</RootNamespace>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
-    <AssemblyName>OpenTKA</AssemblyName>
+    <AssemblyName>OpenTK1.0</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -484,6 +484,24 @@
     </Compile>
     <Compile Include="..\..\Source\OpenTK\Graphics\ES30.Android\Helper.cs">
       <Link>Graphics\EL30.Android\Helper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Graphics\ES31.Android\Enums.cs">
+      <Link>Graphics\EL31.Android\Enums.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Graphics\ES31.Android\Core.cs">
+      <Link>Graphics\EL31.Android\Core.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Graphics\ES31.Android\ES.cs">
+      <Link>Graphics\EL31.Android\ES.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Graphics\ES31.Android\ES.Obsolete.cs">
+      <Link>Graphics\EL31.Android\ES.Obsolete.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Graphics\ES31.Android\Helper.cs">
+      <Link>Graphics\EL31.Android\Helper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Math\Matrix2.cs">
+      <Link>Math\Matrix2.cs</Link>
     </Compile>
     <Compile Include="..\..\Source\OpenTK\Math\Matrix3.cs">
       <Link>Math\Matrix3.cs</Link>

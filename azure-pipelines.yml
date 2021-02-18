@@ -1,0 +1,27 @@
+trigger:
+  branches:
+    include:
+      - master
+      - refs/tags/*
+resources:
+  repositories:
+    - repository: internal-templates
+      type: github
+      name: xamarin/yaml-templates
+      endpoint: xamarin
+      ref: refs/heads/main
+variables:
+  - group: Xamarin-Secrets
+stages:
+  - stage: Build
+    jobs:
+    - job: buildWindows
+      pool:
+        vmImage: windows-latest
+      steps:
+      - task: MSBuild@1
+          displayName: 'Build Projects\OpenTK.Android\OpenTK.Android.csproj'
+          inputs:
+            solution: Projects\OpenTK.Android\OpenTK.Android.csproj
+            configuration: Release
+            msbuildArguments: /restore /v:diag
