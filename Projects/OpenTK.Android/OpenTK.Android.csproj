@@ -28,20 +28,10 @@
     <Compile Include="..\..\Source\OpenTK\Math\*.cs" />
     <Compile Include="..\..\Source\OpenTK\Platform\*.cs" />
     <Compile Include="..\..\Source\OpenTK\Platform\Dummy\*.cs" />
-
-
-    <Compile Include="..\..\Source\OpenTK\Platform\Egl\EglGraphicsMode.cs">
-      <Link>Platform\Egl\EglGraphicsMode.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Source\OpenTK\Platform\Egl\EglWindowInfo.cs">
-      <Link>Platform\Egl\EglWindowInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Source\OpenTK\Platform\Egl\Egl.cs">
-      <Link>Platform\Egl\Egl.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Source\OpenTK\Platform\Egl\EglContext.cs">
-      <Link>Platform\Egl\EglContext.cs</Link>
-    </Compile>
+    <Compile Include="..\..\Source\OpenTK\Platform\Egl\EglGraphicsMode.cs" />
+    <Compile Include="..\..\Source\OpenTK\Platform\Egl\EglWindowInfo.cs" />
+    <Compile Include="..\..\Source\OpenTK\Platform\Egl\Egl.cs" />
+    <Compile Include="..\..\Source\OpenTK\Platform\Egl\EglContext.cs" />
   </ItemGroup>
 
   <!-- Android Specific Files -->
