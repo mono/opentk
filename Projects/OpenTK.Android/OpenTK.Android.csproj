@@ -9,7 +9,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <DefineConstants Condition="$(TargetFramework.Contains ('android'))">MONODROID</DefineConstants>
-    <DefineConstants Condition="$(TargetFramework.Contains ('ios'))">IPHONE</DefineConstants>
+    <DefineConstants Condition="$(TargetFramework.Contains ('ios'))">IPHONE;XAMCORE_2_0</DefineConstants>
     <DefineConstants>$(DefineConstants);MINIMAL;MOBILE;OPENTK_1</DefineConstants>
     <DefineConstants Condition="'$(Configuration)' == 'Debug'">$(DefineConstants);LOGGING</DefineConstants>
   </PropertyGroup>
@@ -43,10 +43,14 @@
   <!-- iOS Specific Files -->
   <ItemGroup>
     <Compile Include="..\..\Source\OpenTK\Graphics\*.iPhone\*.cs" Condition="$(TargetFramework.Contains ('ios'))"/>
-    <Compile Include="..\..\Source\OpenTK\Graphics/ES10/Helper.cs"  Condition="$(TargetFramework.Contains ('ios'))" />
-    <Compile Include="..\..\Source\OpenTK\Graphics/ES11/Helper.cs"  Condition="$(TargetFramework.Contains ('ios'))" />
-    <Compile Include="..\..\Source\OpenTK\Graphics/ES20/Helper.cs"  Condition="$(TargetFramework.Contains ('ios'))" />
+    <Compile Include="..\..\Source\OpenTK\Graphics\ES10\Helper.cs"  Condition="$(TargetFramework.Contains ('ios'))" />
+    <Compile Include="..\..\Source\OpenTK\Graphics\ES11\Helper.cs"  Condition="$(TargetFramework.Contains ('ios'))" />
+    <Compile Include="..\..\Source\OpenTK\Graphics\ES20\Helper.cs"  Condition="$(TargetFramework.Contains ('ios'))" />
     <Compile Include="..\..\Source\OpenTK\Platform\iPhoneOS\**\*.cs" Condition="$(TargetFramework.Contains ('ios'))" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="*" Condition="$(TargetFramework.Contains ('ios'))"  />
   </ItemGroup>
   
 </Project>
