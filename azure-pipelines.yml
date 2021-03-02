@@ -78,3 +78,12 @@ stages:
         inputs:
           artifactName: 'nuget'
           pathtoPublish: $(Build.ArtifactStagingDirectory)
+
+  - stage: Publish
+    dependsOn: Test
+    condition: eq(variables['System.TeamProject'], 'devdiv') # only sign the packages when running on Windows, and using the private server which has the certificates
+    jobs:
+    - template: sign-artifacts/jobs/v2.yml@internal-templates
+      parameters:
+        signListPath: 'SignList.xml'
+        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
