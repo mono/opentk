@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Xamarin.Legacy.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\OpenTK.props" />
   <PropertyGroup>
-    <AssemblyName>OpenTK1.0</AssemblyName>
+    <AssemblyName>OpenTK-1.0</AssemblyName>
     <TargetFrameworks>monoandroid11.0;net6.0-android</TargetFrameworks>
     <AssemblyOriginatorKeyFile>..\..\OpenTK.snk</AssemblyOriginatorKeyFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -52,5 +53,26 @@
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="*" Condition="$(TargetFramework.Contains ('ios'))"  />
   </ItemGroup>
+
+  <PropertyGroup>
+        <!--
+        nuget packaging
+        -->
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <PackageId>Xamarin.Legacy.OpenTK</PackageId>
+        <PackageVersion>$(_OpenTKNugetVersion)</PackageVersion>
+        <Title>Xamarin.Legacy.OpenTK</Title>
+        <Summary>Legacy OpenGL, OpenCL and OpenAL Bindings for Xamarin. (https://github.com/mono/opentk)</Summary>
+        <Description>Legacy OpenGL, OpenCL and OpenAL Bindings for Xamarin. (https://github.com/mono/opentk)</Description>
+        <Authors>Microsoft</Authors>
+        <Owners>Microsoft, Xamarin</Owners>
+        <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+        <PackageProjectUrl>https://github.com/mono/opentk</PackageProjectUrl>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/mono/opentk/main/Documentation/License.txt</PackageLicenseUrl>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageTags></PackageTags>
+        <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\</PackageOutputPath>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>.pdb;$(AllowedOutputExtensionsInPackageBuildOutputFolder)</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    </PropertyGroup>
   
 </Project>
