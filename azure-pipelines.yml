@@ -61,7 +61,7 @@ stages:
       - task: CopyFiles@2
         displayName: Copy nupkg
         inputs:
-          contents: 'Projects\OpenTK.Android\*.nupkg'
+          contents: '*.nupkg'
           targetFolder: $(Build.ArtifactStagingDirectory)
       - task: CopyFiles@2
         displayName: Copy SignList

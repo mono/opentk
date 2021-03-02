@@ -71,7 +71,7 @@
         <PackageLicenseUrl>https://raw.githubusercontent.com/mono/opentk/main/Documentation/License.txt</PackageLicenseUrl>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageTags></PackageTags>
-        <PackageOutputPath>$(MSBuildThisFileDirectory)</PackageOutputPath>
+        <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\</PackageOutputPath>
         <AllowedOutputExtensionsInPackageBuildOutputFolder>.pdb;$(AllowedOutputExtensionsInPackageBuildOutputFolder)</AllowedOutputExtensionsInPackageBuildOutputFolder>
     </PropertyGroup>
   
