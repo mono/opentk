@@ -74,5 +74,10 @@
         <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\</PackageOutputPath>
         <AllowedOutputExtensionsInPackageBuildOutputFolder>.pdb;$(AllowedOutputExtensionsInPackageBuildOutputFolder)</AllowedOutputExtensionsInPackageBuildOutputFolder>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="Xamarin.Legacy.OpenTK.props" PackagePath="build" Pack="true" />
+        <None Include="OpenTK.cfg" PackagePath="build" Pack="true" />
+    </ItemGroup>
   
 </Project>
