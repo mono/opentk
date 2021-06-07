@@ -76,7 +76,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="Xamarin.Legacy.OpenTK.targets" PackagePath="build" Pack="true" />
+        <None Include="Xamarin.Legacy.OpenTK.props" PackagePath="build" Pack="true" />
         <None Include="OpenTK.cfg" PackagePath="build" Pack="true" />
     </ItemGroup>
   
