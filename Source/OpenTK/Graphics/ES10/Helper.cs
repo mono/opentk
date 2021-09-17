@@ -9,7 +9,7 @@ namespace OpenTK.Graphics.ES10
     /// </summary>
     public sealed partial class GL : GraphicsBindingsBase
     {
-        const string Library = "libGLES.dll";
+        const string Library = "libGLES";
         static readonly object sync_root = new object();
 
         #region --- Protected Members ---
