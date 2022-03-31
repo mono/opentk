@@ -68,7 +68,7 @@
         <Owners>Microsoft, Xamarin</Owners>
         <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
         <PackageProjectUrl>https://github.com/mono/opentk</PackageProjectUrl>
-        <PackageLicenseUrl>https://raw.githubusercontent.com/mono/opentk/main/Documentation/License.txt</PackageLicenseUrl>
+        <PackageLicenseExpression>MIT AND BSD-3-Clause</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageTags></PackageTags>
         <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\</PackageOutputPath>

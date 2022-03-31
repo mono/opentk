@@ -1,5 +1,5 @@
 <Project>
     <PropertyGroup>
-        <_OpenTKNugetVersion>1.0.1</_OpenTKNugetVersion>
+        <_OpenTKNugetVersion>1.0.2</_OpenTKNugetVersion>
     </PropertyGroup>
 </Project>
